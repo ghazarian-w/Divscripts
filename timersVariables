@@ -1,0 +1,92 @@
+###Folders and locations
+scriptsFolder=~/Ressources/Divscripts
+ressoucesFolder=~/Ressources
+backupFolder=/run/media/$USER/Element/Backuphome/
+
+###files to consult or log
+musicCount=$scriptsFolder/Sortedmusiccount.txt
+videoCount=$scriptsFolder/Sortedvideocount.txt
+sound_file="~/Ressources/Sound1.wav"
+
+logAudacious=~/Audacious.log
+
+###shorthand variables
+
+zenitySmall="--height 500 --width 400"
+zenityMedium="--height 800 --width 400"
+zenityLarge="--width 5000"
+zenityTall="--height 5000"
+zenityFS="--height 5000 --width 5000"
+hostname=$(cat /etc/hostname)
+keybind=$(bash $scriptsFolder/Monitors/whatbindkeyisused.sh)
+
+###functions
+
+check_internet() {
+    echo "Checking internet connectivity..."
+    if ping -q -c 1 -W 1 kernel.org > /dev/null; then
+        echo "Connected to the internet."
+        connected=true
+    else
+        echo "No internet connection. Please check your network settings."
+        zenity --warning --text="No internet connection. Please check your network settings."
+        connected=false
+    fi
+}
+
+transform_seconds() {
+    # Calculate days, hours, minutes, and seconds
+    days=$(( seconds_translate / 86400 ))
+    seconds_translate=$(( seconds_translate % 86400 ))
+    hours=$(( seconds_translate / 3600 ))
+    seconds_translate=$(( seconds_translate % 3600 ))
+    minutes=$(( seconds_translate / 60 ))
+    seconds=$(( seconds_translate % 60 ))
+}
+
+error_handle(){
+    if [ $? -ne 0 ]; then
+    echo $1 >&2
+    exit 1
+fi
+}
+
+###files to consult or log
+countFile="$ressoucesFolder/count"
+tempCount="$ressoucesFolder/tempcount"
+timerLog="$ressoucesFolder/timers.log"
+reserveCount="$scriptsFolder/reservecount"
+timerScript="$scriptsFolder/timer.sh"
+
+###shorthand variables
+timeCount=$(cat $countFile)
+timeTemp=$(cat $tempCount)
+timeReserve=$(cat $reserveCount)
+timeReserveHours=$(( $timeReserve / 3600 ))
+timeDisplay=$timeCount\ \($timeReserve\)
+timeDisplayNicer=$timeCount\ \($timeReserveHours\)
+freq=5
+
+
+###functions
+
+# Check if timer is running and kill it if it is
+kill_timer() {    
+    if pgrep -f "timer.sh" >/dev/null; then
+        pkill -f "timer.sh"
+    fi
+}
+
+# Start the timer
+restart_timer() {
+    if [ ! -f $timerScript ]; then
+        echo "Error: timer.sh does not exist." >&2
+        exit 1
+    fi
+    kill_timer ; bash $timerScript &
+    echo "Timer has been relaunched." >> $timerLog
+}
+
+addToTemp() {
+    echo $[$timeTemp + $1] > $tempCount
+}

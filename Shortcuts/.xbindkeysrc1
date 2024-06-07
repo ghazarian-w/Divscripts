@@ -1,0 +1,194 @@
+###########################
+# xbindkeys configuration #
+###########################
+#
+# Version: 0.1.3
+#
+# If you edit this, do not forget to uncomment any lines that you change.
+# The pound(#) symbol may be used anywhere for comments.
+#
+# A list of keys is in /usr/include/X11/keysym.h and in
+# /usr/include/X11/keysymdef.h 
+# The XK_ is not needed. 
+#
+# List of modifier (on my keyboard): 
+#   Control, Shift, Mod1 (Alt), Mod2 (NumLock), 
+#   Mod3 (CapsLock), Mod4, Mod5 (Scroll). 
+#
+# Another way to specifie a key is to use 'xev' and set the 
+# keycode with c:nnn or the modifier with m:nnn where nnn is 
+# the keycode or the state returned by xev 
+#
+# This file is created by xbindkey_config 
+# The structure is : 
+# # Remark 
+# "command" 
+# m:xxx + c:xxx 
+# Shift+... 
+
+
+
+
+#keystate_numlock = enable
+#keystate_scrolllock = enable
+#keystate_capslock = enable
+
+
+
+#App menu
+"xfce4-appfinder"
+    m:0x8 + c:67
+    Alt + F1 
+
+#taskmanager
+"xfce4-taskmanager"
+    m:0x15 + c:9
+    Control+Shift+Mod2 + Escape 
+
+#Logout invite
+"xfce4-session-logout"
+    m:0x5 + c:70
+    Control+Shift + F4 
+
+#Save the RAM
+"zsh ~/Ressources/Divscripts/Shortcuts/pkill.sh"
+    m:0x44 + c:52
+    Control+Mod4 + w 
+
+#Thunar
+"thunar"
+    m:0x40 + c:65
+    Mod4 + space 
+
+#Beep keybinds
+"zsh ~/Ressources/Divscripts/Shortcuts/beeponkeybinds.sh"
+    m:0x0 + c:51
+    mu 
+
+#Terminal
+"exo-open --launch TerminalEmulator"
+    m:0xc + c:28
+    Control+Alt + t 
+
+#Delete track
+"bash ~/Ressources/Divscripts/Audacious.sh -D"
+    m:0x40 + c:28
+    Mod4 + t 
+
+#Keep Track
+"bash ~/Ressources/Divscripts/Audacious.sh -K"
+    m:0x40 + c:29
+    Mod4 + y 
+
+#Favorite track
+"bash ~/Ressources/Divscripts/Audacious.sh -F"
+    m:0x40 + c:30
+    Mod4 + u 
+
+#Up volume
+"zsh ~/Ressources/Divscripts/Shortcuts/upvolume.sh"
+    m:0x40 + c:31
+    Mod4 + i 
+
+#Down volume
+"zsh ~/Ressources/Divscripts/Shortcuts/downvolume.sh"
+    m:0x40 + c:32
+    Mod4 + o 
+
+#Close tab
+"bash ~/Ressources/Divscripts/Addforclosetab.sh"
+    m:0x4 + c:52
+    Control + w 
+
+#Bring up Marvin
+"zsh ~/Ressources/Divscripts/Shortcuts/upmarvin.sh"
+    m:0x40 + c:33
+    Mod4 + p 
+
+#Marvin task
+"zsh ~/Ressources/Divscripts/Marvin/Addtask.sh -u"
+    m:0x40 + c:25
+    Mod4 + z
+
+#Task from selection
+"zsh ~/Ressources/Divscripts/Marvin/Addtask.sh -s"
+    m:0x40 + c:39
+    Mod4 + s 
+
+#Take note
+"zsh ~/Ressources/Divscripts/Shortcuts/takenote.sh"
+    m:0x40 + c:24
+    Mod4 + a 
+
+#Screenshot window
+"zsh ~/Ressources/Divscripts/Shortcuts/screenwindow.sh"
+    m:0x0 + c:107
+    Print 
+
+#Screenshot
+"zsh ~/Ressources/Divscripts/Shortcuts/screenscreen.sh"
+    m:0x0 + c:107
+    Control + Print 
+
+#Launch video reader
+"zsh ~/Ressources/Divscripts/Video_watch/Launch.sh"
+    m:0x40 + c:46
+    Mod4 + l 
+
+#Play/pause media
+"zsh ~/Ressources/Divscripts/Shortcuts/playpause_media.sh"
+    m:0x80 + c:65
+    Mod5 + space 
+
+#Stop medias
+"zsh ~/Ressources/Divscripts/Shortcuts/stop_media.sh"
+    m:0x40 + c:38
+    Mod4 + q 
+
+#Qalculate
+"qalculate-gtk"
+    m:0x80 + c:45
+    Mod5 + k 
+
+#List clipboard copy
+"zsh ~/Ressources/Divscripts/Clipboard/Clipboardlist_copy.sh"
+    m:0x40 + c:54
+    Mod4 + c 
+
+#List clipboard cut
+"zsh ~/Ressources/Divscripts/Clipboard/Clipboardlist_cut.sh"
+    m:0x40 + c:53
+    Mod4 + x 
+
+#Paste line from list clipboard
+"zsh ~/Ressources/Divscripts/Clipboard/Clipboardlist_paste_line.sh"
+    m:0x40 + c:39
+    Mod4 + v 
+
+#Paste all List clipboard
+"zsh ~/Ressources/Divscripts/Clipboard/Clipboardlist_paste.sh"
+    m:0x41 + c:55
+    Shift+Mod4 + v 
+
+#Switch configs
+"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc2"
+    m:0x0 + c:127
+    Pause 
+
+#Switch configs-Copy
+"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc2"
+    m:0x48 + c:94
+    Alt+Mod4 + less 
+
+#Click on repeat
+"xdotool click --repeat 500000 1"
+    m:0x5 + c:96
+    Control+Shift + F12 
+
+#stop xdotool
+"pkill xdotool"
+    m:0x5 + c:95
+    Control+Shift + F11 
+
+#
+# End of xbindkeys configuration

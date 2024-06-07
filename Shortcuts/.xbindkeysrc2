@@ -1,0 +1,164 @@
+###########################
+# xbindkeys configuration #
+###########################
+#
+# Version: 0.1.3
+#
+# If you edit this, do not forget to uncomment any lines that you change.
+# The pound(#) symbol may be used anywhere for comments.
+#
+# A list of keys is in /usr/include/X11/keysym.h and in
+# /usr/include/X11/keysymdef.h 
+# The XK_ is not needed. 
+#
+# List of modifier (on my keyboard): 
+#   Control, Shift, Mod1 (Alt), Mod2 (NumLock), 
+#   Mod3 (CapsLock), Mod4, Mod5 (Scroll). 
+#
+# Another way to specifie a key is to use 'xev' and set the 
+# keycode with c:nnn or the modifier with m:nnn where nnn is 
+# the keycode or the state returned by xev 
+#
+# This file is created by xbindkey_config 
+# The structure is : 
+# # Remark 
+# "command" 
+# m:xxx + c:xxx 
+# Shift+... 
+
+
+
+
+#keystate_numlock = enable
+#keystate_scrolllock = enable
+#keystate_capslock = enable
+
+
+
+#App menu
+"xfce4-appfinder"
+    m:0x8 + c:67
+    Alt + F1 
+
+#taskmanager
+"xfce4-taskmanager"
+    m:0x15 + c:9
+    Control+Shift+Mod2 + Escape 
+
+#Logout invite
+"xfce4-session-logout"
+    m:0x5 + c:70
+    Control+Shift + F4 
+
+#Save the RAM
+"zsh ~/Ressources/Divscripts/Shortcuts/pkill.sh"
+    m:0x44 + c:52
+    Control+Mod4 + w 
+
+#Thunar
+"thunar"
+    m:0x40 + c:65
+    Mod4 + space 
+
+#Beep keybinds
+"zsh ~/Ressources/Divscripts/Shortcuts/beeponkeybinds.sh"
+    m:0x0 + c:51
+    mu 
+
+#Delete track
+"bash ~/Ressources/Divscripts/Audacious.sh -D"
+    m:0x0 + c:38
+    q 
+
+#Keep Track
+"bash ~/Ressources/Divscripts/Audacious.sh -K"
+    m:0x0 + c:39
+    s 
+
+#Favorite track
+"bash ~/Ressources/Divscripts/Audacious.sh -F"
+    m:0x0 + c:40
+    d 
+
+#Up volume
+"zsh ~/Ressources/Divscripts/Shortcuts/upvolume.sh"
+    m:0x0 + c:21
+    minus 
+
+#Down volume
+"zsh ~/Ressources/Divscripts/Shortcuts/downvolume.sh"
+    m:0x0 + c:35
+    dollar 
+
+#Bring up Marvin
+"zsh ~/Ressources/Divscripts/Shortcuts/upmarvin.sh"
+    m:0x40 + c:33
+    Mod4 + p 
+
+#Marvin task
+"zsh ~/Ressources/Divscripts/Marvin/Addtask.sh -u"
+    m:0x40 + c:25
+    Mod4 + z 
+
+#Take note
+"zsh ~/Ressources/Divscripts/Shortcuts/takenote.sh"
+    m:0x40 + c:24
+    Mod4 + a 
+
+#Launch video reader
+"zsh ~/Ressources/Divscripts/Video_watch/Launch.sh"
+    m:0x0 + c:55
+    v 
+
+#Play/pause media
+"zsh ~/Ressources/Divscripts/Shortcuts/playpause_media.sh"
+    m:0x80 + c:65
+    Mod5 + space 
+
+#Stop medias
+"zsh ~/Ressources/Divscripts/Shortcuts/stop_media.sh"
+    m:0x0 + c:45
+    k 
+
+#Switch configs
+"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
+    m:0x0 + c:127
+    Pause 
+
+#Switch configs-Copy
+"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc3"
+    m:0x48 + c:94
+    Alt+Mod4 + less 
+
+#Switch configs-Copy
+"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
+    m:0x40 + c:28
+    Mod4 + t 
+
+#Switch configs-Copy
+"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
+    m:0x40 + c:29
+    Mod4 + y 
+
+#Switch configs-Copy
+"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
+    m:0x40 + c:30
+    Mod4 + u 
+
+#Switch configs-Copy
+"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
+    m:0x40 + c:31
+    Mod4 + i 
+
+#Switch configs-Copy
+"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
+    m:0x40 + c:32
+    Mod4 + o 
+
+#Switch configs-Copy
+"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
+    m:0x40 + c:32
+    Mod4 + o 
+
+#
+# End of xbindkeys configuration

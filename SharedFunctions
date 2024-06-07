@@ -1,0 +1,49 @@
+check_internet() {
+    echo "Checking internet connectivity..."
+    if ping -q -c 1 -W 1 kernel.org > /dev/null; then
+        echo "Connected to the internet."
+        connected=true
+    else
+        echo "No internet connection. Please check your network settings."
+        zenity --warning --text="No internet connection. Please check your network settings."
+        connected=false
+    fi
+}
+
+transform_seconds() {
+    # Calculate days, hours, minutes, and seconds
+    days=$(( seconds_translate / 86400 ))
+    seconds_translate=$(( seconds_translate % 86400 ))
+    hours=$(( seconds_translate / 3600 ))
+    seconds_translate=$(( seconds_translate % 3600 ))
+    minutes=$(( seconds_translate / 60 ))
+    seconds=$(( seconds_translate % 60 ))
+}
+
+error_handle(){
+    if [ $? -ne 0 ]; then
+    echo $1 >&2
+    exit 1
+fi
+}
+
+# Check if timer is running and kill it if it is
+kill_timer() {    
+    if pgrep -f "timer.sh" >/dev/null; then
+        pkill -f "timer.sh"
+    fi
+}
+
+# Start the timer
+restart_timer() {
+    if [ ! -f $timerScript ]; then
+        echo "Error: timer.sh does not exist." >&2
+        exit 1
+    fi
+    kill_timer ; bash $timerScript &
+    echo "Timer has been relaunched." >> $timerLog
+}
+
+addToTemp() {
+    echo $[$timeTemp + $1] > $tempCount
+}
