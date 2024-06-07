@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 
 rsync -a --delete --quiet ~/ $backupFolder

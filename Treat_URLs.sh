@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 
 check_internet
 if $connected; then

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 
 #Main tagging function
 tag_current() {

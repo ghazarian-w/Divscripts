@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 
 set -x  # enable debugging
 #catch le deuxière argument pour pouvoir s'en servir dans une fonction.

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 
 echo "Ce programme télécharge les vidéos en Français."
 

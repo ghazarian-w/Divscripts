@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 
 if [ "$(cat /etc/hostname)" = "gluttony" ]; then
     cat $scriptsFolder/Currentlyplaying.txt

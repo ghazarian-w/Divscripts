@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 
 kill_timer ; bash $timerScript &
 echo "Timer has been relaunched." >> $timerLog

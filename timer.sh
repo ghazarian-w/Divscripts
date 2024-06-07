@@ -2,7 +2,7 @@
 
 ### SOURCES/VARIABLES ###
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 source $scriptsFolder/Video_watch/mplayer-with-status.sh 
 
 # List of applications to check

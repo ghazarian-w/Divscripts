@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 control_status=$(cat $scriptsFolder/Video_watch/pseudocontrols.txt)
 
 

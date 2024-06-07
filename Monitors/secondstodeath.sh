@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 
 # Define the target date (11th May 2027)
 target_date="2027-05-11 00:00:00"

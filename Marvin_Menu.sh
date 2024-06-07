@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 
 selection=$(zenity --list "Marvin Menu" "Timer Menu" "Sync menu" "URL Menu" --column "" --text "$(fortune -s)" --title="Menu Menu" --height=450)
 case "$selection" in

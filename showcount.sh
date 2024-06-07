@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 
 seconds_translate=$(($timeCount + $timeTemp + $timeReserve))
 transform_seconds

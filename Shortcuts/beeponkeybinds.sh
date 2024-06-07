@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 
 beeeeep() {
     mplayer -really-quiet -nolirc -vo null -ao alsa "$sound_file"

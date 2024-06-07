@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Ressources/Divscripts/timersVariables
+source $scriptsFolder/SharedFunctions
 
 pkill xbindkeys ;
 if [ "$(cat /etc/hostname)" = "gluttony" ]; then
