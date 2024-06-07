@@ -1,3 +1,5 @@
+No mountain ever too high and every problem has a solution... with bash. At least I've solved every issue I needed to with it.
+
 This is a repository of scripts used everyday in all of my computers. Most of them are by me, one or two of them are gleaned here and there and modified. Too lazy to source them for now, but I will if asked.
 
 I'll try to document them a bit at some point. They are a jumbled mess of French and English. Deal with it.

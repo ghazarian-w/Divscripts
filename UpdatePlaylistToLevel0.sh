@@ -14,18 +14,26 @@ while IFS= read -r file; do
   else
     basename=$(basename "$file")
     similar_files=$(find "$folder" -type f -name "$basename")
-    if [[ $similar_files != *"*" ]]; then
-        chosen_file="$similar_files"
-        #TODO : Check from here
-        sed -i "/^$file$/c\\$chosen_file" "$playlist"
+    echo "$similar_files"
+    file_count=$(echo "$similar_files" | wc -l)
+    if [[ -z "$similar_files" ]]; then
+      timestamp=$(date +"%Y-%m-%d")
+      log_file="$scriptsFolder/missing_files_${timestamp}.log"
+      echo "File not found: $file" >> "$log_file"
+      echo "Logged missing file: $file"
+    elif [ $file_count -gt 1 ]; then
+      echo "More than one file with the name '$basename' was found in '$folder'."
+      mapfile -t options < <(find "$folder" -type f -name "$basename")
+      options=("${options[@]/%_/\"}")
+      selected=$(zenity --list "${options[@]}" --title "Choose the correct file" --text "File not found: $file. Select the correct path below:" --column "")
+           if [[ $selected ]]; then
+               sed -i "s|$file|$selected|" "$playlist"
+           fi
     else
-        options=($(echo "$similar_files" | tr " " "\n"))
-        selected=$(zenity --list "${options[@]}" --title "Choose the correct file" --text "File not found: $file. Select the correct path below:" --column "")
-        if [[ $selected ]]; then
-            chosen_file="$selected"
-            sed -i "/^$file$/c\\$chosen_file" "$playlist"
-        fi
+      echo "Only one file found"
+      selected="$similar_files"
+      sed -i "s|$file|$selected|" "$playlist"
     fi
-    echo "Handled: $file -> $chosen_file"
+    echo "Handled: $file -> $selected"
   fi
 done < "$playlist"
