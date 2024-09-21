@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Specify the folder path where the files are located
-folder_path="/home/storage/INLET/Youtube/Videos"
+folder_path="/home/william/Videos"
 
 # Specify the output file for storing the video file names
 video_list_file="video_list.txt"

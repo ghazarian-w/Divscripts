@@ -2,8 +2,5 @@
 
 source $scriptsFolder/SharedFunctions
 
-kill_timer ; bash $timerScript &
+kill_timer ; bash $timerScript -n &
 echo "Timer has been relaunched." >> $timerLog
-
-# kill_timer ; bash ~/Ressources/Divscripts/timerneg.sh &
-# echo "Negative timer has been relaunched." >> $timerLog

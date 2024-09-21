@@ -20,7 +20,7 @@ echo $(($timeCount-$freq)) > $countFile
 if (($timeCount % 60 == 0)); then
     echo "Count: $timeDisplay removed 60 for $displayApp at $(date)" >> $timerLog
 fi
-if isNegative; then
+if isNegative "$1"; then
     if [ "$timeReserve" -ge 3600 ]; then
     echo $(($timeCount+3600)) > $countFile
     #the following line avoids closure if and when count is taken off reserve
@@ -34,7 +34,7 @@ fi
 }
 
 closeTrackedApp(){
-if isNegative; then
+if isNegative "$1"; then
     xdotool search --limit 1 --name "$app" windowactivate
     zenity --warning --width=300 --title="Limite de temps atteinte" --text="Vous ne pouvez plus utiliser $displayApp" --timeout=10
     case "$app" in
@@ -75,8 +75,8 @@ for app in "${apps[@]}"; do
                 displayApp=Minecraft
                 ;;
         esac
-        incrementCount
-        closeTrackedApp
+        incrementCount "$1"
+        closeTrackedApp "$1"
     fi
 done
 #mplayer (detects if it plays)
@@ -84,8 +84,8 @@ if pgrep mplayer >/dev/null; then
     if ! isPaused; then
         app=mplayer
         displayApp=Mplayer
-        incrementCount
-        closeTrackedApp
+        incrementCount "$1"
+        closeTrackedApp "$1"
     fi
 fi
 #mpv (detects if it plays)
@@ -94,8 +94,8 @@ if pgrep mpv >/dev/null; then
     if [[ "$pause_status" == "false" ]]; then
         app=mpv
         displayApp=Mpv
-        incrementCount
-        closeTrackedApp
+        incrementCount "$1"
+        closeTrackedApp "$1"
     fi
 fi
 

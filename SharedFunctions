@@ -1,3 +1,15 @@
+###Timers shorthand variables
+export timeCount=$(cat $countFile)
+export timeTemp=$(cat $tempCount)
+export timeReserve=$(cat $reserveCount)
+export timeReserveHours=$(( $timeReserve / 3600 ))
+export timeDisplay=$timeCount\ \($timeReserve\)
+export timeDisplayNicer=$timeCount\ \($timeReserveHours\)
+###Frequency of timer in seconds
+export freq=5
+export keybind=$(bash $scriptsFolder/Monitors/whatbindkeyisused.sh)
+
+
 check_internet() {
     echo "Checking internet connectivity..."
     if ping -q -c 1 -W 1 kernel.org > /dev/null; then
@@ -40,7 +52,7 @@ restart_timer() {
         echo "Error: timer.sh does not exist." >&2
         exit 1
     fi
-    kill_timer ; bash $timerScript &
+    kill_timer ; bash $timerScript -n &
     echo "Timer has been relaunched." >> $timerLog
 }
 

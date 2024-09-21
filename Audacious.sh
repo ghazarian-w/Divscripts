@@ -61,14 +61,14 @@ favoriteConservative(){
 
 # Avoid accidentally deleting next song if pressed delete too late and it
 # already advanced to the next song.
-if [ $seconds_playing -gt 5 ]; then
+#if [ $seconds_playing -gt 5 ]; then
     case "$1" in
         -K) keep ;;
         -D) deleting ;;
         -F) favorite ;;
         -C) current ;;
     esac
-fi
+#fi
 
 if [[ -z "$1" || "$1" == "-L" ]]; then
     # Reverse the playlist and pause playback

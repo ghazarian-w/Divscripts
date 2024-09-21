@@ -55,7 +55,7 @@ case $1 in
         ;;
     "-100")
         # Display a warning message to the user
-        zenity --warning --width=500 --title="Ultimatum : Limite de temps atteinte" --text="10 heures de watch time seront retirées au compteur."
+        zenity --warning --width=500 --title="Ultimatum : Limite de temps atteinte" --text="100 heures de watch time seront retirées au compteur."
         # Subtract 10 hours from count file
         newCount=$(( timeReserve - 360000 ))
         error_handle "Error: Unable to read count file."
