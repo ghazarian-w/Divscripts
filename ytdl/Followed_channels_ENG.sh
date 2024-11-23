@@ -7,8 +7,19 @@ echo "Ce programme télécharge les vidéos en Anglais."
 set -e
 
 check_internet
+
 if $connected; then
-    yt-dlp -j --flat-playlist --socket-timeout 10 $(cat $scriptsFolder/ytdl/channel_lists/Channels_ENG.txt) | jq -r '.id' | sed 's_^_https://youtube.com/v/_' > $scriptsFolder/ytdl/util/vidsurls_ENG.txt
+    
+    # Ensure the output file is empty or does not exist
+    > "$scriptsFolder/ytdl/util/vidsurls_ENG.txt"
+
+    while IFS= read -r channel
+    do
+        echo "$channel"
+        yt-dlp -j --flat-playlist --socket-timeout 10 "$channel" | \
+        jq -r '.id' | \
+        sed 's_^_https://youtube.com/v/_' >> "$scriptsFolder/ytdl/util/vidsurls_ENG.txt"
+    done < "$scriptsFolder/ytdl/channel_lists/Channels_ENG.txt"
 
     if [ $? -ne 0 ]; then
         echo "An error occurred while getting the video URLs."

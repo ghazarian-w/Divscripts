@@ -8,7 +8,17 @@ set -e
 
 check_internet
 if $connected; then
-    yt-dlp -j --flat-playlist --socket-timeout 10 $(cat $scriptsFolder/ytdl/channel_lists/Channels_FR.txt) | jq -r '.id' | sed 's_^_https://youtube.com/v/_' > $scriptsFolder/ytdl/util/vidsurls_FR.txt
+
+    # Ensure the output file is empty or does not exist
+    > "$scriptsFolder/ytdl/util/vidsurls_FR.txt"
+
+    while IFS= read -r channel
+    do
+        echo "$channel"
+        yt-dlp -j --flat-playlist --socket-timeout 10 "$channel" | \
+        jq -r '.id' | \
+        sed 's_^_https://youtube.com/v/_' >> "$scriptsFolder/ytdl/util/vidsurls_FR.txt"
+    done < "$scriptsFolder/ytdl/channel_lists/Channels_FR.txt"
 
     if [ $? -ne 0 ]; then
         echo "An error occurred while getting the video URLs."
