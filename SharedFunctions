@@ -52,7 +52,8 @@ restart_timer() {
         echo "Error: timer.sh does not exist." >&2
         exit 1
     fi
-    kill_timer ; bash $timerScript -n &
+    kill_timer ; bash $timerScript &
+    #kill_timer ; bash $timerScript -n &
     echo "Timer has been relaunched." >> $timerLog
 }
 

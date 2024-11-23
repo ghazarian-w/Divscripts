@@ -10,7 +10,7 @@ defaultVolume=30
 
 playMediaFile() {
 	#(mplayer -xy 3000 -use-filename-title -geometry 0%:0% -slave -input file="$mplayerCmds" -volume $defaultVolume "$1" < /dev/null 2> /dev/null & echo "PID: $!") > "$mplayerDump"
-	(mplayer -xy 3000 -use-filename-title -geometry 0%:0% -slave -input file="$mplayerCmds" "$1" < /dev/null 2> /dev/null & echo "PID: $!") > "$mplayerDump"
+	(mplayer -xy 3000 -use-filename-title -geometry 50%:50% -vf screenshot -slave -input file="$mplayerCmds" "$1" < /dev/null 2> /dev/null & echo "PID: $!") > "$mplayerDump"
 
 }
 

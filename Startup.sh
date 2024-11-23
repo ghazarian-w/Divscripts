@@ -8,31 +8,21 @@ gnome-keyring-daemon -d &
 restart_timer
 bash $scriptsFolder/Shortcuts/launchkeybindings.sh &
 check_internet
-if $connected; then
-    if zenity --question --text="Sync ?"; then 
-        /usr/bin/keepassxc &
-        "/usr/bin/nextcloud" --background &
-    fi
-fi
+/usr/bin/keepassxc &
+"/usr/bin/nextcloud" --background &
 
 
 if [ "$hostname" = "gluttony" ]; then
     /bin/bash -c "sleep 20 && /usr/bin/variety --profile ~/.config/variety/" &
-    audacious &
+    #audacious &
     firefox &
     signal-desktop-beta &
     standard-notes &
     amazingmarvin &
     ferdium &
     thunar &
-    thunar /home/storage/INLET/zSort/ &
     tilda &
-    sleep 120 ;
-    xfce4-terminal -H --maximize -x bash $scriptsFolder/ytdl/Followed_channels_FR.sh &
-    xfce4-terminal -H --maximize -x bash $scriptsFolder/ytdl/Followed_channels_ENG.sh &
-    xfce4-terminal -H --maximize -x bash $scriptsFolder/ytdl/Followed_channels_music.sh &
-    xfce4-terminal -H --maximize -x bash $scriptsFolder/ytdl/Archived_channels_DL.sh &
-    xfce4-terminal -H --maximize -x rsync -auUv --delete /run/media/$USER/WiDe/Backupmaindisc &
+    #xfce4-terminal -H --maximize -x rsync -auUv --delete /run/media/$USER/WiDe/Backupmaindisc &
     #transmission-qt &
 fi
 
@@ -58,13 +48,17 @@ if [ "$hostname" = "sloth" ]; then
         check_internet
         if $connected; then
             signal-desktop-beta &
-            ferdium &
         fi
     ;;
     "Trier des fonds d'écran")
-    geeqie /home/$USER/Tri/WP &
+        geeqie /home/$USER/Tri/WP &
     ;;
     esac
+    sleep 120 ;
+    #xfce4-terminal -H --maximize -x bash $scriptsFolder/ytdl/Followed_channels_FR.sh &
+    #xfce4-terminal -H --maximize -x bash $scriptsFolder/ytdl/Followed_channels_ENG.sh &
+    #xfce4-terminal -H --maximize -x bash $scriptsFolder/ytdl/Followed_channels_music.sh &
+    #xfce4-terminal -H --maximize -x bash $scriptsFolder/ytdl/Archived_channels_DL.sh &
 fi
 
 if [ "$hostname" = "wrath" ]; then
