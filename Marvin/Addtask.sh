@@ -8,7 +8,7 @@ tag_current() {
   type=( "Inbox" "Organisation" "Menage" "Achats" "Administration" "Boulot" "Hobbys" "Slam" "Game_design" "Graphisme" "Brainshit" "Watchlist" "Bricolage" "Pyrotechnie" "Jeux_Videos" "Chanson" "Mangas" "Biblio" "Jobbing" "Medical" "Ordinateur" "Onglets" "Scripting" "Programming" "Installations" "Files" "Recherches" "Vente" "Soin")
 
   device=( "Any" "NoDevice" "Gluttony" "Vanity" "Sloth" "Despair")
-  place=( "Anywhere" "Maison" "Ville" "Boulot")
+  place=( "Anywhere" "Maison" "Ville" "Boulot" "HS")
   share=( "Unshareable" "InPerson" "Shareable" "Depending")
 
 
@@ -92,6 +92,7 @@ processList() {
         taskname="$line"
         tag_current
         ~/Ressources/marvin-cli-linux add "$line $tagging"
+        addToTemp $scoreTask
     done < "$list_file"
 }
 
@@ -107,6 +108,7 @@ processListSimilar() {
     # Read the file and process each line
     while IFS= read -r line; do
         ~/Ressources/marvin-cli-linux add "$line $tagging"
+        addToTemp $scoreTask
     done < "$list_file"
 
 }
@@ -116,6 +118,7 @@ processSelection() {
     taskname=$(xsel)
     tag_current
     ~/Ressources/marvin-cli-linux add "$taskname $tagging"
+    addToTemp $scoreTask
 }
 
 processPrompt() {
@@ -124,6 +127,7 @@ processPrompt() {
     while [[ ! -z "$taskname" ]]; do
         tag_current
         ~/Ressources/marvin-cli-linux add "$taskname $tagging"
+        addToTemp $scoreTask
         taskname=$(zenity --title "Nom de tâche" --entry --text "La tache apparaitra dans Marvin.")
     done
 }
@@ -132,12 +136,14 @@ processUnique () {
     taskname=$(zenity --title "Nom de tâche" --entry --text "La tache apparaitra dans Marvin.")
     tag_current
     ~/Ressources/marvin-cli-linux add "$taskname $tagging"
+    addToTemp $scoreTask
 }
 
 processProject () {
     taskname=$(zenity --title "Nom de tâche" --entry --text "La tache apparaitra dans Marvin.")
     tag_current
     ~/Ressources/marvin-cli-linux add project "$taskname $tagging"
+    addToTemp $scoreTask
 }
 
 extractJson () {
