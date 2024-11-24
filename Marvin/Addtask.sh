@@ -5,31 +5,68 @@ source $scriptsFolder/SharedFunctions
 #Main tagging function
 tag_current() {
 
-  type=( "Inbox" "Organisation" "Menage" "Achats" "Administration" "Boulot" "Hobbys" "Slam" "Game_design" "Graphisme" "Brainshit" "Watchlist" "Bricolage" "Pyrotechnie" "Jeux_Videos" "Chanson" "Mangas" "Biblio" "Jobbing" "Medical" "Ordinateur" "Onglets" "Scripting" "Programming" "Installations" "Files" "Recherches" "Vente" "Soin")
+  type=( "Inbox" "Ordinateur" "Onglets" "Scripting" "Programming" "Installations" "Fichiers" "Recherches" "Organisation" "Menage" "Achats" "Administration" "Soin" "Boulot" "Bricolage" "Hobbys" "Slam" "Game_design" "Graphisme" "Articles" "Pyrotechnie" "Jeux_Videos" "Chanson" "Mangas" "Biblio" "Vente")
 
-  device=( "Any" "NoDevice" "Gluttony" "Vanity" "Sloth" "Despair")
+  device=( "AnyComputer" "NoDevice" "Gluttony" "Vanity" "Sloth" "Despair")
   place=( "Anywhere" "Maison" "Ville" "Boulot" "HS")
   share=( "Unshareable" "InPerson" "Shareable" "Depending")
 
-
-  #avoids repeating a reward over multiple tasks in a list
-  coins=""
+  #avoids repeating a tag over multiple tasks in a list
+  coins=""; cate=""; appareil=""; location=""; partage=""; temps=""; priorite=""; extra=""
 
   cate=$(zenity --list "${type[@]}" "Projet" --column "" --text "$taskname" --title="Category" $zenityTall)
   if [ "$cate" == "Projet" ]; then
     cate=$(zenity --list "${projects[@]}" --column "" --text "$taskname" --title="Category" $zenityTall)
   fi
-  appareil=$(zenity --list "${device[@]}" --column "" --text "$taskname" --title="Appareil" $zenitySmall)
-  location=$(zenity --list "${place[@]}" --column "" --text "$taskname" --title="Location" $zenitySmall)
-  partage=$(zenity --list "${share[@]}" --column "" --text "$taskname" --title="Partage" $zenitySmall)
-  temps=$(zenity --title "Temps estimé" --entry --text "$taskname")
-  reward=$(zenity --title "Récompense" --entry --text "$taskname")
-  if [[ ! -z "$reward" ]]; then
-  coins=" \$$reward"
+  if [ "$cate" == "Organisation" ]; then
+    appareil="AnyComputer"; location="Anywhere"; partage="Shareable"
   fi
-  selection=$(zenity --list "Urgent" "Si possible" "Peut attendre" "Pas le feu au lac" --column "" --text "$taskname" --title="Priorité" $zenitySmall)
+  if [ "$cate" == "Scripting" ]; then
+    appareil="Gluttony"; location="Maison"; partage="Shareable"
+  fi
+  if [[ "$cate" == "Recherches" ]]; then
+    partage="Unshareable"
+  fi
+  if [[ "$cate" == "Articles" || "$cate" == "Slam" ]]; then
+    appareil="AnyComputer"; location="Anywhere"; partage="Unshareable"
+  fi
+  if [[ "$cate" == "Boulot" || "$cate" == "Administration" ]]; then
+    partage="Shareable"
+  fi
+  if [[ "$cate" == "Bricolage" || "$cate" == "Menage" ]]; then
+    location="Maison"
+  fi
+  if [ "$cate" == "Graphisme" ]; then
+    appareil="Gluttony"
+  fi
+
+
+  if [[ -z "$appareil" ]]; then
+  appareil=$(zenity --list "${device[@]}" --column "" --text "$taskname" --title="Appareil" $zenitySmall)
+  fi
+  if [[ "$appareil" == "Gluttony" || "$appareil" == "Despair" ]]; then
+    location="Maison"
+  fi
+  if [[ "$appareil" == "Vanity" || "$appareil" == "Sloth" ]]; then
+    location="Anywhere"
+  fi
+
+  if [[ -z "$location" ]]; then
+  location=$(zenity --list "${place[@]}" --column "" --text "$taskname" --title="Location" $zenitySmall)
+  fi
+
+  if [[ -z "$partage" ]]; then
+  partage=$(zenity --list "${share[@]}" --column "" --text "$taskname" --title="Partage" $zenitySmall)
+  fi
+
+  if [ "$partage" == "Depending" ]; then
+    extra=$extra" @Delayed"
+  fi
+  
+  temps=$(zenity --title "Temps estimé" --entry --text "$taskname")
+  selection=$(zenity --list "ASAP" "Si possible" "Peut attendre" "Pas le feu au lac" --column "" --text "$taskname" --title="Urgence" $zenitySmall)
   case "$selection" in
-  "Urgent")
+  "ASAP")
   priorite=" *p1"
   ;;
   "Si possible")
@@ -43,13 +80,17 @@ tag_current() {
   ;;
   esac
 
-  extra=""
-
   while true; do
-    selection=$(zenity --list "Rien" "Ajouter à la liste du jour" "Ajouter pour demain" "Ajouter pour plus tard" "SuperImportant" "Excluded" "Delayed" "Done" "Avec une note" --column "" --text "$taskname" --title="En plus" $zenityTall)
+    selection=$(zenity --list "Rien" "Récompense particulière" "Ajouter à la liste du jour" "Ajouter pour demain" "Ajouter pour plus tard" "SuperImportant" "Excluded" "Delayed" "Done" "Avec une note" --column "" --text "$taskname" --title="En plus" $zenityTall)
     case "$selection" in
       "Rien")
         break
+        ;;
+      "Récompense particulière")
+        reward=$(zenity --title "Récompense" --entry --text "$taskname")
+        if [[ ! -z "$reward" ]]; then
+          coins=" \$$reward"
+        fi
         ;;
       "Ajouter à la liste du jour")
         extra=$extra" +today"
@@ -76,6 +117,7 @@ tag_current() {
         ;;
       "Done")
         extra=$extra" @Done"
+        break
         ;;
     esac
   done
