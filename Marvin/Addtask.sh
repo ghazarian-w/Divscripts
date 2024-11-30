@@ -1,11 +1,12 @@
 #!/bin/bash
 
 source $scriptsFolder/SharedFunctions
+scoreTask=60
 
 #Main tagging function
 tag_current() {
 
-  type=( "Inbox" "Ordinateur" "Onglets" "Scripting" "Programming" "Installations" "Fichiers" "Recherches" "Organisation" "Menage" "Achats" "Administration" "Soin" "Boulot" "Bricolage" "Hobbys" "Slam" "Game_design" "Graphisme" "Articles" "Pyrotechnie" "Jeux_Videos" "Chanson" "Mangas" "Biblio" "Vente")
+  type=( "Inbox" "Ordinateur" "Onglets" "Scripting" "Programming" "Installations" "Fichiers" "Recherches" "Organisation" "Menage" "Achats" "Administration" "Soin" "Boulot" "Bricolage" "Hobbys" "Slam" "Game_design" "Graphisme" "Articles" "Pyrotechnie" "Jeux_Videos" "Chanson" "Mangas" "Biblio" "Social" "Vente")
 
   device=( "AnyComputer" "NoDevice" "Gluttony" "Vanity" "Sloth" "Despair")
   place=( "Anywhere" "Maison" "Ville" "Boulot" "HS")
@@ -20,6 +21,9 @@ tag_current() {
   fi
   if [ "$cate" == "Organisation" ]; then
     appareil="AnyComputer"; location="Anywhere"; partage="Shareable"
+  fi
+  if [ "$cate" == "Onglets" ]; then
+    appareil="AnyComputer"; location="Anywhere"; partage="Unshareable"; temps="20"; priorite=" *p3"
   fi
   if [ "$cate" == "Scripting" ]; then
     appareil="Gluttony"; location="Maison"; partage="Shareable"
@@ -62,23 +66,28 @@ tag_current() {
   if [ "$partage" == "Depending" ]; then
     extra=$extra" @Delayed"
   fi
-  
-  temps=$(zenity --title "Temps estimé" --entry --text "$taskname")
-  selection=$(zenity --list "ASAP" "Si possible" "Peut attendre" "Pas le feu au lac" --column "" --text "$taskname" --title="Urgence" $zenitySmall)
-  case "$selection" in
-  "ASAP")
-  priorite=" *p1"
-  ;;
-  "Si possible")
-  priorite=" *p2"
-  ;;
-  "Peut attendre")
-  priorite=" *p3"
-  ;;
-  "Pas le feu au lac")
-  priorite=""
-  ;;
-  esac
+
+  if [[ -z "$temps" ]]; then
+    temps=$(zenity --title "Temps estimé" --entry --text "$taskname")
+  fi
+
+  if [[ -z "$priorite" ]]; then
+    selection=$(zenity --list "ASAP" "Si possible" "Peut attendre" "Pas le feu au lac" --column "" --text "$taskname" --title="Urgence" $zenitySmall)
+    case "$selection" in
+      "ASAP")
+      priorite=" *p1"
+      ;;
+      "Si possible")
+      priorite=" *p2"
+      ;;
+      "Peut attendre")
+      priorite=" *p3"
+      ;;
+      "Pas le feu au lac")
+      priorite=""
+      ;;
+    esac
+  fi
 
   while true; do
     selection=$(zenity --list "Rien" "Récompense particulière" "Ajouter à la liste du jour" "Ajouter pour demain" "Ajouter pour plus tard" "SuperImportant" "Excluded" "Delayed" "Done" "Avec une note" --column "" --text "$taskname" --title="En plus" $zenityTall)
@@ -145,10 +154,10 @@ processListSimilar() {
     taskname=$(head -n 1 $list_file)
     taskname="Exemple de tâche : $taskname"
     tag_current
-    line="$1"
 
     # Read the file and process each line
     while IFS= read -r line; do
+        sleep 2
         ~/Ressources/marvin-cli-linux add "$line $tagging"
         addToTemp $scoreTask
     done < "$list_file"
@@ -169,7 +178,7 @@ processPrompt() {
     while [[ ! -z "$taskname" ]]; do
         tag_current
         ~/Ressources/marvin-cli-linux add "$taskname $tagging"
-        addToTemp $scoreTask
+        echo $(($timeTemp + $scoreTask)) > $tempCount
         taskname=$(zenity --title "Nom de tâche" --entry --text "La tache apparaitra dans Marvin.")
     done
 }
