@@ -1,7 +1,7 @@
 #!/bin/bash
 
-dest_folder="/home/william/Ressources/PhoneWallpapers/"
-config_file="/home/william/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
+dest_folder="/home/$USER/Ressources/PhoneWallpapers/"
+config_file="/home/$USER/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
 
 # Extract the file path from the XML configuration
 fpath=$(sed -n '114s/.*value="\([^"]*\)".*/\1/p' "$config_file")

@@ -58,5 +58,5 @@ restart_timer() {
 }
 
 addToTemp() {
-    echo $[$timeTemp + $1] > $tempCount
+    echo $(($timeTemp + $1)) > $tempCount
 }
