@@ -6,7 +6,7 @@ source $scriptsFolder/SharedFunctions
 source $scriptsFolder/Video_watch/mplayer-with-status.sh 
 
 # List of applications to check
-apps=("netflix" "mgba" " - youtube" "slot: " "SevTech")
+apps=("switch15684" "mgba" " - youtube" "slot: " "SevTech")
 
 ### FUNCTIONS ####
 
@@ -38,7 +38,7 @@ if isNegative "$1"; then
     xdotool search --limit 1 --name "$app" windowactivate
     zenity --warning --width=300 --title="Limite de temps atteinte" --text="Vous ne pouvez plus utiliser $displayApp" --timeout=10
     case "$app" in
-        "netflix"|" - youtube")
+        "switch15684"|" - youtube")
             xdotool search --limit 1 --name "$app" windowkill
         ;;
         "mplayer"|"mpv")
@@ -59,8 +59,8 @@ for app in "${apps[@]}"; do
     # If the application is found, take appropriate action and exit the loop
     if xdotool search --onlyvisible --limit 1 --name "$app" getwindowpid &>/dev/null; then
         case "$app" in
-            "netflix")
-                displayApp=Netflix
+            "switch15684")
+                displayApp=Switch
                 ;;
             "mgba")
                 displayApp=mGBA

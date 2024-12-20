@@ -2,7 +2,7 @@
 
 source $scriptsFolder/SharedFunctions
 
-listboard="$scriptsFolder/Listboard.txt"
+listboard="/tmp/listboard.txt"
 
 case "$1" in
 -c)

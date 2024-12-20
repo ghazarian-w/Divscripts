@@ -8,7 +8,7 @@ tag_current() {
 
   type=( "Inbox" "Ordinateur" "Onglets" "Scripting" "Programming" "Installations" "Fichiers" "Recherches" "Organisation" "Menage" "Achats" "Administration" "Soin" "Boulot" "Bricolage" "Hobbys" "Slam" "Game_design" "Graphisme" "Articles" "Pyrotechnie" "Jeux_Videos" "Chanson" "Mangas" "Biblio" "Social" "Vente")
 
-  device=( "AnyComputer" "NoDevice" "Gluttony" "Vanity" "Sloth" "Despair")
+  device=( "AnyComputer" "NoDevice" "Gluttony" "Vanity" "Greed" "Despair")
   place=( "Anywhere" "Maison" "Ville" "Boulot" "HS")
   share=( "Unshareable" "InPerson" "Shareable" "Depending")
 
@@ -51,7 +51,7 @@ tag_current() {
   if [[ "$appareil" == "Gluttony" || "$appareil" == "Despair" ]]; then
     location="Maison"
   fi
-  if [[ "$appareil" == "Vanity" || "$appareil" == "Sloth" ]]; then
+  if [[ "$appareil" == "Vanity" || "$appareil" == "Greed" ]]; then
     location="Anywhere"
   fi
 
