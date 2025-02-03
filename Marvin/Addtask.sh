@@ -7,7 +7,6 @@ scoreTask=60
 tag_current() {
 
   type=( "Inbox" "Ordinateur" "Onglets" "Scripting" "Programming" "Installations" "Fichiers" "Recherches" "Organisation" "Menage" "Achats" "Administration" "Soin" "Boulot" "Bricolage" "Hobbys" "Slam" "Game_design" "Graphisme" "Articles" "Pyrotechnie" "Jeux_Videos" "Chanson" "Mangas" "Biblio" "Social" "Vente")
-
   device=( "AnyComputer" "NoDevice" "Gluttony" "Vanity" "Greed" "Despair")
   place=( "Anywhere" "Maison" "Ville" "Boulot" "HS")
   share=( "Unshareable" "InPerson" "Shareable" "Depending")
@@ -43,6 +42,9 @@ tag_current() {
   if [ "$cate" == "Graphisme" ]; then
     appareil="Gluttony"
   fi
+  if [[ -z "$cate" ]]; then
+    exit
+  fi
 
 
   if [[ -z "$appareil" ]]; then
@@ -54,9 +56,15 @@ tag_current() {
   if [[ "$appareil" == "Vanity" || "$appareil" == "Greed" ]]; then
     location="Anywhere"
   fi
+  if [[ -z "$appareil" ]]; then
+    exit
+  fi
 
   if [[ -z "$location" ]]; then
   location=$(zenity --list "${place[@]}" --column "" --text "$taskname" --title="Location" $zenitySmall)
+  fi
+  if [[ -z "$location" ]]; then
+    exit
   fi
 
   if [[ -z "$partage" ]]; then
@@ -66,9 +74,15 @@ tag_current() {
   if [ "$partage" == "Depending" ]; then
     extra=$extra" @Delayed"
   fi
+  if [[ -z "$partage" ]]; then
+    exit
+  fi
 
   if [[ -z "$temps" ]]; then
     temps=$(zenity --title "Temps estimé" --entry --text "$taskname")
+  fi
+  if [[ -z "$temps" ]]; then
+    exit
   fi
 
   if [[ -z "$priorite" ]]; then
@@ -87,6 +101,9 @@ tag_current() {
       priorite=""
       ;;
     esac
+  fi
+  if [[ -z "$priorite" ]]; then
+    exit
   fi
 
   while true; do
