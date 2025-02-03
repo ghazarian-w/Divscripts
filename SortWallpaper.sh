@@ -2,7 +2,7 @@
 
 # Define variables
 dest_folder="/home/$USER/Ressources/PhoneWallpapers/"
-source="/home/$USER/Ressources/PhoneWallpapers/PSFW"
+source="/home/$USER/Ressources/ImagesWallpapers"
 
 # Function to send notifications
 notify() {
@@ -59,10 +59,33 @@ move_wallpaper() {
         fi
 
         set_new_wallpaper
-        if mv "$fpath" "$destination"; then
-            notify "Moved: $fpath to $destination"
+
+        # Extract the filename from the path
+        local filename=$(basename "$fpath")
+        local dest_file="$destination/$filename"
+
+        # Check if the file already exists in the destination
+        if [[ -e "$dest_file" ]]; then
+            # Generate a new unique filename to avoid overwriting
+            local base="${filename%.*}"
+            local ext="${filename##*.}"
+            local counter=1
+            local new_filename="${base}_${counter}.${ext}"
+
+            # Keep incrementing the counter until a unique filename is found
+            while [[ -e "$destination/$new_filename" ]]; do
+                ((counter++))
+                new_filename="${base}_${counter}.${ext}"
+            done
+
+            dest_file="$destination/$new_filename"
+        fi
+
+        # Move the file to the destination
+        if mv "$fpath" "$dest_file"; then
+            notify "Moved: $fpath to $dest_file"
         else
-            notify "Failed to move: $fpath to $destination"
+            notify "Failed to move: $fpath to $dest_file"
         fi
     else
         notify "File does not exist: $fpath"
