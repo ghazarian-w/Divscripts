@@ -11,6 +11,8 @@ playlistn="$(audtool --current-playlist)"
 #This is in milliseconds
 notifDuration=9000
 
+
+
 if [[ "$1" == "-L" ]]; then
     remMessage="With Lyrics"
     delMessage="Without Lyrics"
@@ -37,6 +39,21 @@ deleting(){
     notify-send -t $notifDuration "$delMessage : $fpath" 
     echo "$delMessage : $fpath" >> $logAudacious
 }
+lvlSet(){
+    for list in {0..3}; do
+        if [ "$lvl" -ge "$list" ]; then
+            if ! grep -Fxq "$fpath" "/home/william/Ressources/Level_$list.m3u"; then
+                echo "$fpath" >> "/home/william/Ressources/Level_$list.m3u"
+            fi
+        else
+            if grep -Fxq "$fpath" "/home/william/Ressources/Level_$list.m3u"; then
+                sed -i "\|$fpath|d" "/home/william/Ressources/Level_$list.m3u"
+            fi
+        fi
+    done
+    notify-send -t $notifDuration "Sorted as lvl $lvl : $fpath" 
+    removeFromList
+}
 current(){
     audtool --current-song > $scriptsFolder/Currentlyplaying.txt
 }
@@ -61,14 +78,29 @@ favoriteConservative(){
 
 # Avoid accidentally deleting next song if pressed delete too late and it
 # already advanced to the next song.
-#if [ $seconds_playing -gt 5 ]; then
+if [ $seconds_playing -gt 5 ]; then
     case "$1" in
-        -K) keep ;;
-        -D) deleting ;;
+        -0)
+            lvl=0
+            lvlSet
+           ;;
+        -1)
+            lvl=1
+            lvlSet
+            ;;
+        -2)
+            lvl=2
+            lvlSet
+            ;;
+        -3)
+            lvl=3
+            lvlSet
+            ;;
         -F) favorite ;;
+        -D) deleting ;;
         -C) current ;;
     esac
-#fi
+fi
 
 if [[ -z "$1" || "$1" == "-L" ]]; then
     # Reverse the playlist and pause playback
@@ -100,14 +132,24 @@ if [[ -z "$1" || "$1" == "-L" ]]; then
             ;;
         esac
     else
-        selection=$(zenity --list "OUI" "NON" "FAVORITE" "RÉÉCOUTER" --column="" --text="$(audtool --current-song && echo "" && fortune -s)" --title="As-tu aimé ?" $zenityTall)
+        selection=$(zenity --list "0" "1" "2" "3" "RÉÉCOUTER" --column="" --text="$(audtool --current-song && echo "" && fortune -s)" --title="Niveau de cette piste" $zenityTall)
 
         case "$selection" in
-        "OUI")
-            keep
+        "0")
+            lvl=0
+            lvlSet
             ;;
-        "NON")
-            deleting
+        "1")
+            lvl=1
+            lvlSet
+            ;;
+        "2")
+            lvl=2
+            lvlSet
+            ;;
+        "3")
+            lvl=3
+            lvlSet
             ;;
         "FAVORITE")
             favorite
