@@ -5,18 +5,18 @@ source $scriptsFolder/SharedFunctions
 listboard="/tmp/listboard.txt"
 
 case "$1" in
--c)
+"-c")
     echo $(xsel) >> $listboard 
 ;;
--x)
+"-x")
     echo $(xsel) >> $listboard
     xdotool key Delete
 ;;
--pl)
+"-pl")
     sed -n '1p' $listboard | xclip -selection clipboard
     sed -i '1d' $listboard
 ;;
--pa)
+"-pa")
     cat $listboard | xclip -selection clipboard
     gio trash $listboard
     touch $listboard

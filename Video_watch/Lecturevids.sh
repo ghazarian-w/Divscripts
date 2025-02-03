@@ -201,7 +201,7 @@ if [[ -f "$video" ]]; then
     Mpv_playing
 
     # Demander à l'utilisateur s'il souhaite supprimer, déplacer la vidéo ou revoir
-    choice=$(zenity --list "Supprimer la vidéo" "${dirList[@]}" "Voir plus tard" "Revoir la vidéo" --column "" --text "Que voulez-vous faire avec la vidéo ?\n$video" --title="Trieur de vidéos" $zenityTall)
+    choice=$(zenity --list "Supprimer la vidéo" "${dirList[@]}" "Voir plus tard" "Revoir la vidéo" --column "" --text "Que voulez-vous faire avec la vidéo ?\n$video" --timeout 40 --title="Trieur de vidéos" $zenityTall)
 
 
     if [ ! -z "$choice" ]; then

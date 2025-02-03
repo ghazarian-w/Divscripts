@@ -62,8 +62,8 @@
 
 #Beep keybinds
 "zsh ~/Ressources/Divscripts/Shortcuts/beeponkeybinds.sh"
-    m:0x0 + c:51
-    mu 
+    m:0x0 + c:15
+    section 
 
 #Terminal
 "exo-open --launch TerminalEmulator"
@@ -80,10 +80,25 @@
     m:0x40 + c:29
     Mod4 + y 
 
-#Favorite track
-"bash ~/Ressources/Divscripts/Audacious.sh -F"
-    m:0x40 + c:30
-    Mod4 + u 
+#LvlTrack0
+"bash ~/Ressources/Divscripts/Audacious.sh -0"
+    m:0x40 + c:19
+    Mod4 + agrave 
+
+#LvlTrack1
+"bash ~/Ressources/Divscripts/Audacious.sh -1"
+    m:0x40 + c:10
+    Mod4 + ampersand 
+
+#LvlTrack2
+"bash ~/Ressources/Divscripts/Audacious.sh -2"
+    m:0x40 + c:11
+    Mod4 + eacute 
+
+#LvlTrack3
+"bash ~/Ressources/Divscripts/Audacious.sh -3"
+    m:0x40 + c:12
+    Mod4 + quotedbl 
 
 #Up volume
 "zsh ~/Ressources/Divscripts/Shortcuts/upvolume.sh"
@@ -108,7 +123,7 @@
 #Marvin task
 "zsh ~/Ressources/Divscripts/Marvin/Addtask.sh -u"
     m:0x40 + c:25
-    Mod4 + z
+    Mod4 + z 
 
 #Task from selection
 "zsh ~/Ressources/Divscripts/Marvin/Addtask.sh -s"
@@ -135,45 +150,35 @@
     m:0x40 + c:46
     Mod4 + l 
 
-#Play/pause media
-"zsh ~/Ressources/Divscripts/Shortcuts/playpause_media.sh"
-    m:0x80 + c:65
-    Mod5 + space 
-
-#Stop medias
-"zsh ~/Ressources/Divscripts/Shortcuts/stop_media.sh"
+#Qalculate
+"qalculate-gtk"
     m:0x40 + c:38
     Mod4 + q 
 
-#Qalculate
-"qalculate-gtk"
-    m:0x80 + c:45
-    Mod5 + k 
-
-#List clipboard copy
-"zsh ~/Ressources/Divscripts/Clipboard/Clipboardlist_copy.sh"
-    m:0x40 + c:54
-    Mod4 + c 
-
 #List clipboard cut
-"zsh ~/Ressources/Divscripts/Clipboard/Clipboardlist_cut.sh"
+"zsh ~/Ressources/Divscripts/Clipboardlist.sh -x"
     m:0x40 + c:53
     Mod4 + x 
 
+#List clipboard copy
+"zsh ~/Ressources/Divscripts/Clipboardlist.sh -c"
+    m:0x40 + c:54
+    Mod4 + c 
+
 #Paste line from list clipboard
-"zsh ~/Ressources/Divscripts/Clipboard/Clipboardlist_paste_line.sh"
+"zsh ~/Ressources/Divscripts/Clipboardlist.sh -pl"
     m:0x40 + c:39
     Mod4 + v 
 
 #Paste all List clipboard
-"zsh ~/Ressources/Divscripts/Clipboard/Clipboardlist_paste.sh"
+"zsh ~/Ressources/Divscripts/Clipboardlist.sh -pa"
     m:0x41 + c:55
     Shift+Mod4 + v 
 
 #Switch configs
 "pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc2"
     m:0x0 + c:127
-    Pause 
+    Pause
 
 #Switch configs-Copy
 "pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc2"
@@ -189,6 +194,31 @@
 "pkill xdotool"
     m:0x5 + c:95
     Control+Shift + F11 
+
+#Wallp.OK
+"zsh ~/Ressources/Divscripts/SortWallpaper.sh -m"
+    m:0x40 + c:56
+    Mod4 + b 
+
+#Wallp.Del
+"zsh ~/Ressources/Divscripts/SortWallpaper.sh -d"
+    m:0x40 + c:57
+    Mod4 + n 
+
+#Start dictation French
+"zsh ~/Ressources/Divscripts/Shortcuts/nerd_dictation.sh &"
+    m:0x10 + c:51
+    mu 
+
+#Start dictation English
+"zsh ~/Ressources/Divscripts/Shortcuts/nerd_dictation.sh -en &"
+    m:0x40 + c:51
+    Mod4 + mu 
+
+#Favorite Track
+"bash ~/Ressources/Divscripts/Audacious.sh -F"
+    m:0x40 + c:29
+    Mod4 + y 
 
 #
 # End of xbindkeys configuration
