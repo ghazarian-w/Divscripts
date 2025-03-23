@@ -10,7 +10,7 @@ bash $scriptsFolder/Shortcuts/launchkeybindings.sh &
 check_internet
 
 if [ "$hostname" = "greed" ]; then
-    selection=$(zenity --list "" "Trier" "" "Écrire" "" "Coder" "" "Organisation" "" "Communiquer" "" "Surfer" --column "" --column "" --text "Choisir session" --title="Démarrage" --checklist --multiple $zenityFS)
+    selection=$(zenity --list "" "Trier" "" "Écrire" "" "Coder" "" "Organisation" "" "Communiquer" "" "Surfer" "" "Musique" --column "" --column "" --text "Choisir session" --title="Démarrage" --checklist --multiple $zenityFS)
 
     execute_startup() {
         case $1 in
@@ -35,9 +35,12 @@ if [ "$hostname" = "greed" ]; then
         "Surfer")
             check_internet
             if $connected; then
-                firefox &
+                librewolf &
                 /usr/bin/keepassxc &
             fi
+        ;;
+        "Musique")
+            audacious &
         ;;
         esac
     }
@@ -61,7 +64,7 @@ if [ "$hostname" = "gluttony" ]; then
     #audacious &
     tilda &
     transmission-qt &
-    firefox &
+    librewolf &
     signal-desktop-beta &
     standard-notes &
     amazingmarvin &

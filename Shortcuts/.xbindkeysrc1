@@ -2,7 +2,7 @@
 # xbindkeys configuration #
 ###########################
 #
-# Version: 0.1.3
+# Version: 0.1.4
 #
 # If you edit this, do not forget to uncomment any lines that you change.
 # The pound(#) symbol may be used anywhere for comments.
@@ -72,18 +72,13 @@
 
 #Delete track
 "bash ~/Ressources/Divscripts/Audacious.sh -D"
-    m:0x40 + c:28
-    Mod4 + t 
-
-#Keep Track
-"bash ~/Ressources/Divscripts/Audacious.sh -K"
-    m:0x40 + c:29
-    Mod4 + y 
+    m:0x40 + c:19
+    Mod4 + agrave 
 
 #LvlTrack0
 "bash ~/Ressources/Divscripts/Audacious.sh -0"
-    m:0x40 + c:19
-    Mod4 + agrave 
+    m:0x50 + c:49
+    Mod2+Mod4 + twosuperior 
 
 #LvlTrack1
 "bash ~/Ressources/Divscripts/Audacious.sh -1"
@@ -99,6 +94,11 @@
 "bash ~/Ressources/Divscripts/Audacious.sh -3"
     m:0x40 + c:12
     Mod4 + quotedbl 
+
+#LvlTrack4
+"bash ~/Ressources/Divscripts/Audacious.sh -4"
+    m:0x40 + c:13
+    Mod4 + apostrophe 
 
 #Up volume
 "zsh ~/Ressources/Divscripts/Shortcuts/upvolume.sh"
@@ -178,7 +178,7 @@
 #Switch configs
 "pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc2"
     m:0x0 + c:127
-    Pause
+    Pause 
 
 #Switch configs-Copy
 "pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc2"
@@ -207,7 +207,7 @@
 
 #Start dictation French
 "zsh ~/Ressources/Divscripts/Shortcuts/nerd_dictation.sh &"
-    m:0x10 + c:51
+    m:0x10 + c:51<
     mu 
 
 #Start dictation English

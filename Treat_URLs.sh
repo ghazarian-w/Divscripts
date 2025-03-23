@@ -17,7 +17,7 @@ if $connected; then
             cat $scriptsFolder/URLs.txt >> $scriptsFolder/ytdl/util/vidsurlsArchive.txt
         ;;
         -v)
-            yt-dlp -cw --hls-prefer-native --write-description --write-link --write-thumbnail --ignore-errors --embed-chapters --embed-thumbnail --socket-timeout 10 --download-archive $scriptsFolder/ytdl/archives/Archive.txt --output '~/Downloads/Videos/%(uploader)s/%(title)s.%(ext)s' -f "bestvideo[height<=480]+bestaudio/best[height<=480]" $(cat $scriptsFolder/URLs.txt)
+            yt-dlp -cw --hls-prefer-native --write-description --write-link --write-thumbnail --ignore-errors --embed-chapters --embed-thumbnail --socket-timeout 10 --output '~/Downloads/Videos/%(uploader)s/%(title)s.%(ext)s' -f "bestvideo[height<=480]+bestaudio/best[height<=480]" $(cat $scriptsFolder/URLs.txt)
 
             cat $scriptsFolder/URLs.txt >> $scriptsFolder/ytdl/util/vidsurlsArchive.txt
         ;;

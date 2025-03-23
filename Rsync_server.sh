@@ -10,3 +10,4 @@ rsync -aP --delete --update lord_vlad@tilde.town:~/ ~/Ressources/Tilde
 ;;
 
 esac
+echo "done"

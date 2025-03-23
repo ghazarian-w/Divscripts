@@ -7,6 +7,9 @@ set -x  # enable debugging
 currentFolder="$2"
 
 dir_file="$ressoucesFolder/directory_list.txt"
+formats=(-name '*.webm' -o -name '*.mp4' -o -name '*.avi' -o -name '*.flv' -o -name '*.mkv' -o -name '*.mov' -o -name '*.wmv' -o -name '*.MOV' -o -name '*.qt')
+
+
 
 
 eval $(cat $scriptsFolder/Video_watch/mplayer-with-status.sh)
@@ -56,12 +59,12 @@ CurrentDirectory() {
 
 VideoFinding() {
 
-    video=$(find "$videoFolder" -maxdepth 4 -type f \( -name '*.webm' -o -name '*.mp4' -o -name '*.mkv' -o -name '*.mov' -o -name '*.wmv'  -o -name '*.MOV'  -o -name '*.qt' \) -printf "%T@ %p\n" | sort -n | head -n 1 | awk '{gsub(/^[^ ]+ /,""); print}')
+    video=$(find "$videoFolder" -maxdepth 4 -type f \( "${formats[@]}" \) -printf "%T@ %p\n" | sort -n | head -n 1 | awk '{gsub(/^[^ ]+ /,""); print}')
 }
 
 VideoFindingCurrent() {
 
-    video=$(find "$videoFolder" -maxdepth 1 -type f \( -name '*.webm' -o -name '*.mp4' -o -name '*.mkv' -o -name '*.mov' -o -name '*.wmv'  -o -name '*.MOV'  -o -name '*.qt' \) -printf "%T@ %p\n" | sort -n | head -n 1 | awk '{gsub(/^[^ ]+ /,""); print}')
+    video=$(find "$videoFolder" -maxdepth 1 -type f \( "${formats[@]}" \) -printf "%T@ %p\n" | sort -n | head -n 1 | awk '{gsub(/^[^ ]+ /,""); print}')
 }
 
 VideoFindingAlphabet(){
@@ -73,7 +76,7 @@ VideoFindingAlphabet(){
         first_dir=$(echo "$dirs" | head -n 1)
 
         # Find all video files in the first directory and sort them alphabetically
-        results=$(find "$first_dir" -maxdepth 1 -type f \( -name '*.webm' -o -name '*.mp4' -o -name '*.mkv' -o -name '*.mov' -o -name '*.wmv'  -o -name '*.MOV'  -o -name '*.qt' \) | sort | head -n 1)
+        results=$(find "$first_dir" -maxdepth 1 -type f \( "${formats[@]}" \) | sort | head -n 1)
 
         if [ -n "$results" ]; then
             # Get the first video in the sorted list
@@ -87,18 +90,22 @@ VideoFindingAlphabet(){
 }
 
 VideoFindingList(){
-    # Read the first directory from the sorted file
-    earliest_dir=$(head -n 1 "$dir_file")
 
-    escaped_dir=$(printf '%q' "$earliest_dir")
-    earliest_path=$(find "$videoFolder" -type d -name "$escaped_dir")
+    while [[ ! -f "$video" ]]; do
+        # Read the first directory from the sorted file
+        earliest_dir=$(head -n 1 "$dir_file")
 
-    video=$(find "$earliest_path" -maxdepth 1 -type f \( -name '*.webm' -o -name '*.mp4' -o -name '*.mkv' -o -name '*.mov' -o -name '*.wmv'  -o -name '*.MOV'  -o -name '*.qt' \) -print -quit)
-}
+        if [ -z "$earliest_dir" ]; then
+            break
+        fi
 
-VideoFindingListDelFirstLine(){
-    # Remove the first line from the file for next time
-    tail -n +2 "$dir_file" > temp_file && mv temp_file "$dir_file"
+        escaped_dir=$(printf '%q' "$earliest_dir")
+        earliest_path=$(find "$videoFolder" -type d -name "$earliest_dir" -print -quit)
+
+        video=$(find "$earliest_path" -maxdepth 1 -type f \( "${formats[@]}" \) -print -quit)
+        # Remove the first line from the file for next time
+        tail -n +2 "$dir_file" > temp_file && mv temp_file "$dir_file"
+    done
 }
 
 MappingArchival() {
@@ -128,7 +135,7 @@ MappingVidFolders() {
 
 CleanNonVideoFolders() {
     while read -d $'\0' dir; do
-        if [[ ! $(find "$dir" -type f -maxdepth 4 -iregex '.*\.\(mp4\|webm\|mkv\|avi\)$' -print -quit) ]]; then
+        if [[ ! $(find "$dir" -type f -maxdepth 4 -iregex '.*\.\(mp4\|webm\|mkv\|avi\|flv\|qt\)$' -print -quit) ]]; then
             echo "$dir does not have video files - deleting"
             gio trash -f "$dir"
         fi
@@ -211,9 +218,6 @@ if [[ -f "$video" ]]; then
             echo "Suppression de la vidéo : $video"
             addToTemp $scoreVid
             echo $[$(cat $videoCount) + 1] > $videoCount
-            if [ "$1" == "-n" ]; then
-                VideoFindingListDelFirstLine
-            fi
             ;;
         "Voir plus tard")
             # Check if the watch later folder exists and create it if not
@@ -223,9 +227,6 @@ if [[ -f "$video" ]]; then
             # Move the video to the watch later folder
             mv "$video" "$wlFolder"
             echo "Vidéo déplacée dans le dossier : $wlFolder"
-            if [ "$1" == "-n" ]; then
-                VideoFindingListDelFirstLine
-            fi
             ;;
         "Revoir la vidéo")
             # Restart the script, replaying the video
@@ -237,9 +238,6 @@ if [[ -f "$video" ]]; then
             echo "Vidéo déplacée dans le dossier : ${choice//\//\\/}"  # Escape forward slashes in output string
             addToTemp $scoreVid
             echo $[$(cat $videoCount) + 1] > $videoCount
-            if [ "$1" == "-n" ]; then
-                VideoFindingListDelFirstLine
-            fi
             ;;
         esac
     fi
