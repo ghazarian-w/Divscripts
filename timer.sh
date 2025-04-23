@@ -89,7 +89,7 @@ if pgrep mplayer >/dev/null; then
     fi
 fi
 #mpv (detects if it plays)
-if pgrep mpv >/dev/null; then
+if xdotool search --onlyvisible --limit 1 --name "- mpv" getwindowpid &>/dev/null; then
     pause_status=$(echo '{ "command": ["get_property", "pause"] }' | socat - /tmp/mpvsocket | jq -r '.data')
     if [[ "$pause_status" == "false" ]]; then
         app=mpv
