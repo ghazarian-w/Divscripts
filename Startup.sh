@@ -30,6 +30,8 @@ if [ "$hostname" = "greed" ]; then
             check_internet
             if $connected; then
                 signal-desktop-beta &
+                ferdium &
+                terminator &
             fi
         ;;
         "Surfer")
