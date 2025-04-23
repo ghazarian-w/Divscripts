@@ -1,19 +1,19 @@
 #!/bin/bash
 
+#Uses the number of the keybind config to beep the same number of times
+
 source $scriptsFolder/SharedFunctions
 
 beeeeep() {
+    # Launch MPlayer with appropriate playback options
     mplayer -really-quiet -nolirc -vo null -ao alsa "$sound_file"
 }
 
-# Assuming $keybind contains either 1 or 2
-# Launch MPlayer with appropriate playback options
-if [ "$keybind" -eq 1 ]; then
-    beeeeep
-elif [ "$keybind" -eq 2 ]; then
-    beeeeep && beeeeep
-elif [ "$keybind" -eq 3 ]; then
-    beeeeep && beeeeep && beeeeep
+if [[ "$keybind" =~ ^-?[0-9]+$ ]]; then
+    for (( i=0; i<"$keybind"; i++ )); do
+        beeeeep
+    done
+
 else
-    echo "Invalid value for \$keybind. Use 1, 2 or 3."
+  echo "'$keybind' is NOT an integer."
 fi
