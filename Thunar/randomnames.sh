@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Old script, needs rewriting. Makes random names from sha512 sums and renames provided files.
+
 for fname in *.jpg; do
 
 	mv -n "$fname" $(echo "$fname" | sha512sum | cut -f1 -d' ').jpg;

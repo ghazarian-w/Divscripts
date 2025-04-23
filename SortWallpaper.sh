@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#Main script to sort my walpapers in a binary fashion
+
+source $scriptsFolder/SharedFunctions
+
 # Define variables
 dest_folder="/home/$USER/Ressources/PhoneWallpapers/"
 source="/home/$USER/Ressources/ImagesWallpapers"
@@ -22,7 +26,7 @@ set_new_wallpaper() {
         return
     fi
 
-    # Choose a random wallpaper from the destination folder
+    # Choose a random wallpaper from the destination folder. Not the one that is already displayed.
     new_wallpaper=$(find "$source" -type f \( -iname "*.jpg" -o -iname "*.png" \) | shuf -n1)
     while [[ -f "$new_wallpaper" && "$new_wallpaper" == "$fpath" ]]; do
         new_wallpaper=$(find "$source" -type f \( -iname "*.jpg" -o -iname "*.png" \) | shuf -n1)
@@ -32,6 +36,7 @@ set_new_wallpaper() {
     if [[ -f "$new_wallpaper" ]]; then
         xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitorDP-0/workspace0/last-image -s "$new_wallpaper"
         notify "New wallpaper set to: $new_wallpaper"
+        addToTemp 20 
     else
         notify "No wallpapers found in $source to set as new wallpaper."
     fi
@@ -64,7 +69,6 @@ move_wallpaper() {
         local filename=$(basename "$fpath")
         local dest_file="$destination/$filename"
 
-        # Check if the file already exists in the destination
         if [[ -e "$dest_file" ]]; then
             # Generate a new unique filename to avoid overwriting
             local base="${filename%.*}"

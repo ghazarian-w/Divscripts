@@ -3,11 +3,8 @@
 streak=0
 
 while true; do
-    # Generate two random numbers between 1 and 10
     num1=$((1 + RANDOM % 10))
     num2=$((1 + RANDOM % 10))
-
-    # Generate a random operator (+, -, *, or /)
     operators=("+" "-" "*" "/")
     operator=${operators[$RANDOM % ${#operators[@]}]}
 
@@ -35,14 +32,13 @@ while true; do
     # Ask the user to solve the equation
     user_answer=$(zenity --entry --title="Algebra Quiz" --text="$num1 $operator $num2 =" --entry-text="" --width=200)
 
-    # Check if the user left the answer field empty or pressed cancel
+    # Check if the user left the answer field empty or pressed cancel, will finish the quiz
     if [ -z "$user_answer" ]; then
         break
     fi
 
-    # Check if the user's answer is a valid integer
+    # Check if the user's answer is a valid integer then correct
     if [[ "$user_answer" =~ ^[0-9]+$ ]]; then
-        # Check if the user's answer is correct
         if [ "$user_answer" -eq "$correct_answer" ]; then
             streak=$((streak + 1))
             zenity --info --title="Correct!" --text="Good job! Your streak is now $streak."

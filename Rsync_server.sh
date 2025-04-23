@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Mise à jour bidirectionnelle de mon profil Tilde sur le serveur ou sur mon ordinateur.
+
 selection=$(zenity --list "Ordinateur -> Serveur" "Serveur -> Ordinateur" --column "" --text "Select" --title="Sync Menu")
 case "$selection" in
 "Ordinateur -> Serveur")

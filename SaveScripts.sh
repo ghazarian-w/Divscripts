@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Makes an archive of scripts in case of problem
+
 targets=("/home/$USER/Ressources/Divscripts" "/home/$USER/Nextcloud/Files/Divscripts/")
 destination="/home/$USER/standardnotes"
 date=$(date +%Y-%m-%d)

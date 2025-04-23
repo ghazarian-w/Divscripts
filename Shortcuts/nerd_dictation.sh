@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Launches and stops Nerd-Dictation with the same keybinding.
+
 if  pgrep -f "nerd-dictation"; then
     nerd-dictation end
 else

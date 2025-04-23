@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Quick script to treat a uniform list of URLs with the same kind of download command.
+
 source $scriptsFolder/SharedFunctions
 
 check_internet

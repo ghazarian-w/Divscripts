@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Used to find and remake a playlist with an old playlist whose files have been moved around. Still pretty basic.
+
 playlist="/home/william/Musique/Level_0/test.m3u"
 folder="/home/william/Musique/Level_0/"
 

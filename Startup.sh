@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#General Startup script, replaces most of the entries in the xfce4 startup config with more flexibility
+
 source $scriptsFolder/SharedFunctions
 
 sleep 5 ;

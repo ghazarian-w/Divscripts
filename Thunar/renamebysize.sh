@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Rename image files based on the geometric size
+
 for filename in *.jpg* *.JPG* *.jpeg*;
 do
 inname=`convert $filename -format "%t" info:`

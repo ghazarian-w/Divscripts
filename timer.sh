@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+#Main script for running a timer that tracks entertainments and decreases as they are watched.
+
 ### SOURCES/VARIABLES ###
 
 source $scriptsFolder/SharedFunctions

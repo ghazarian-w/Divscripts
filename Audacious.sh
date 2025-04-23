@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Main script for sorting music with audacious
+
 source $scriptsFolder/SharedFunctions
 
 ###functions

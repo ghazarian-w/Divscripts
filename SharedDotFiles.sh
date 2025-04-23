@@ -1,3 +1,5 @@
+#Makes symbolic links of some dotfiles to sync them with nextcloud
+
 Nextcloud_dir=/home/$USER/Nextcloud/Files/Configuration_Files
 target_locs=( "/home/$USER/Nextcloud/Files/Divscripts" "$Nextcloud_dir/mgba" "$Nextcloud_dir/marvin-cli.json")
 link_locs=( "/home/$USER/Ressources/Divscripts" "/home/$USER/.config/mgba" "/home/$USER/.config/marvin-cli.json")

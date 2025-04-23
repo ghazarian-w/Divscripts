@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Petit script pour prendre une note que j'ai fait générer. Rien de bien complexe.
+
 # Demande à l'utilisateur de saisir une note avec Zenity
 note=$(zenity --entry --title "Ajouter une note" --text "Saisissez votre note :")
 

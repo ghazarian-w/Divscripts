@@ -1,3 +1,5 @@
+#shared variables and functions that I want in most of my scripts
+
 ###Timers shorthand variables
 export timeCount=$(cat $countFile)
 export timeTemp=$(cat $tempCount)

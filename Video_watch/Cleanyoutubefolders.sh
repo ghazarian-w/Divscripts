@@ -16,7 +16,7 @@ list_video_files() {
     if [[ -f "$file" ]]; then
       local extension="${file##*.}"
 
-      # Check if the file is a video file
+      # Check if the file is a video file, yes those extentions are enough, this is expecting the output of a 
       if [[ $extension == "mp4" || $extension == "webm" || $extension == "mkv" ]]; then
         local filename=$(basename "$file")
         local video_name="${filename%.*}"

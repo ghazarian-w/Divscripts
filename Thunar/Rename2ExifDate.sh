@@ -1,5 +1,7 @@
 #!/bin/bash
-#rename2exif.sh
+
+#Rename files based on the Exif date if it exists
+
 for PIC in "$@" ; do
 extn=${PIC##*.}
 exval=$(exiftime -tg "$PIC" |grep Generated|awk '{print $3"_"$4}')

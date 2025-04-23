@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Used to get data on me from the computer to log them when desired.
+
 source $scriptsFolder/SharedFunctions
 
 #Define a default for all variables needed later
@@ -40,7 +42,7 @@ if [ "$answer" = "y" ]; then
     rm $archiveMarvinFolder/*.json
 fi
 
-# Get the line count
+# Get the line counts
 read -p "Voulez-vous les métriques de Audacious ? (y/n) " answer
 
 if [ "$answer" = "y" ]; then

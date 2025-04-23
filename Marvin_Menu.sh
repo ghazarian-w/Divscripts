@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#A script to launch scripts. Used with a desktop icon or custom shortcut to easily launch them from a clear explanation of the wanted results
+
 source $scriptsFolder/SharedFunctions
 
 selection=$(zenity --list "Marvin Menu" "Timer Menu" "Sync menu" "URL Menu" --column "" --text "$(fortune -s)" --title="Menu Menu" --height=450)

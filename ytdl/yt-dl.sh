@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Main script for downloading content off Youtube and similar websites
+
 source $scriptsFolder/SharedFunctions
 
 
@@ -39,13 +41,6 @@ download() {
 
     if [ $? -ne 0 ]; then
         echo "An error occurred while downloading the videos."
-        exit 1
-    fi
-
-    yt-dlp -cw --hls-prefer-native --write-description --write-link --write-thumbnail --ignore-errors --embed-chapters --embed-thumbnail --socket-timeout 10 --download-archive "$archive" --output "$dl_loc" -f "bestvideo[height<=480]+bestaudio/best[height<=480]" $(cat "$diff_file")
-
-    if [ $? -ne 0 ]; then
-        echo "An error occurred while downloading the videos (retry)."
         exit 1
     fi
 }

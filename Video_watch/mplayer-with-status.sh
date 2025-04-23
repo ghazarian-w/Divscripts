@@ -1,6 +1,9 @@
 #!/bin/bash
 # mplayer-with-query.sh
 
+#NOT WRITEN BY ME
+#It's used for the timer script to determine if mplayer is playing or just open
+
 # if you're even considering this, you probably also want to control mplayer 
 # from another application, so lets make a pipe for that
 mplayerCmds="/tmp/mplayer-control"

@@ -1,10 +1,10 @@
 #!/bin/bash
 
+#Various ways to change the timer Count, reserveCount and temporaryCount files.
+
 source $scriptsFolder/SharedFunctions
 
 kill_timer
-
-# Add the contents of count and tempCount and save the result to count
 case $1 in
     "-t")
         newCount=$(($timeReserve + $timeTemp))

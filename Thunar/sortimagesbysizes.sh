@@ -2,6 +2,8 @@
 #expecting 1 arg:
 #       a directory containing images
 
+#I don't remember writing this one either, but I don't really use it. I have a full program to do that but better.
+
 #window size
 YAD_W=500
 YAD_H=400

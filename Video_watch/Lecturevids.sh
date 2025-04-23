@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Main video sorting script
+
 source $scriptsFolder/SharedFunctions
 
 set -x  # enable debugging
@@ -9,12 +11,10 @@ currentFolder="$2"
 dir_file="$ressoucesFolder/directory_list.txt"
 formats=(-name '*.webm' -o -name '*.mp4' -o -name '*.avi' -o -name '*.flv' -o -name '*.mkv' -o -name '*.mov' -o -name '*.wmv' -o -name '*.MOV' -o -name '*.qt')
 
-
-
-
 eval $(cat $scriptsFolder/Video_watch/mplayer-with-status.sh)
 source $scriptsFolder/Video_watch/mplayer-with-status.sh
 
+#These functions account for different file structures on different computers and different use cases.
 NormalFolder() {
     if [ "$(cat /etc/hostname)" = "gluttony" ]; then
         videoFolder=/home/storage/INLET/Youtube/Videos
@@ -57,6 +57,7 @@ CurrentDirectory() {
     wlFolder="$currentFolder"/Later
 }
 
+#These functions are used to determine which video should play next
 VideoFinding() {
 
     video=$(find "$videoFolder" -maxdepth 4 -type f \( "${formats[@]}" \) -printf "%T@ %p\n" | sort -n | head -n 1 | awk '{gsub(/^[^ ]+ /,""); print}')
@@ -93,14 +94,13 @@ VideoFindingList(){
 
     while [[ ! -f "$video" ]]; do
         # Read the first directory from the sorted file
-        earliest_dir=$(head -n 1 "$dir_file")
+        earliest_vid=$(head -n 1 "$dir_file")
 
-        if [ -z "$earliest_dir" ]; then
+        if [ -z "$earliest_vid" ]; then
             break
         fi
 
-        escaped_dir=$(printf '%q' "$earliest_dir")
-        earliest_path=$(find "$videoFolder" -type d -name "$earliest_dir" -print -quit)
+        earliest_path=$(find "$videoFolder" -type d -name "$earliest_vid" -print -quit)
 
         video=$(find "$earliest_path" -maxdepth 1 -type f \( "${formats[@]}" \) -print -quit)
         # Remove the first line from the file for next time
@@ -108,8 +108,8 @@ VideoFindingList(){
     done
 }
 
+#These functions are the logic behind VideoFindingList
 MappingArchival() {
-    # Get all directories inside $archFolder into an array variable 'dirList'
     mapfile -t dirList < <(find "$archFolder" -maxdepth 1 -type d | sort)
 }
 
@@ -148,8 +148,8 @@ CreateFolderIfNot() {
     mkdir -p "$wlFolder"
 }
 
+#Main functions for actually playing the files
 Mplaying() {
-    # Afficher la vidéo
     echo "Lecture de la vidéo : $video"
     playMediaFile "$video"
     mplayer_pid=$(getPID)
@@ -162,11 +162,12 @@ Mplaying() {
 }
 
 Mpv_playing() {
-    # Afficher la vidéo
     echo "Lecture de la vidéo : $video"
     mpv --no-terminal --fs --geometry=100%x90% --window-scale=1 "$video"
     echo "Finished playing the video."
 }
+
+#Main script
 
 NormalFolder
 CreateFolderIfNot
@@ -200,14 +201,13 @@ case "$1" in
     ;;
 esac
 
-CreateFolderIfNot
+CreateFolderIfNot #Recreates essential folders if CleanNonVideoFolders has deleted them earlier
 MappingArchival
 
-# Vérifier si une vidéo a été trouvée
 if [[ -f "$video" ]]; then
     Mpv_playing
 
-    # Demander à l'utilisateur s'il souhaite supprimer, déplacer la vidéo ou revoir
+    #Asks where to put the video if it should be archived using the folder array from the MappingArchival function, if not, just deletes it. Configurable timeout.
     choice=$(zenity --list "Supprimer la vidéo" "${dirList[@]}" "Voir plus tard" "Revoir la vidéo" --column "" --text "Que voulez-vous faire avec la vidéo ?\n$video" --timeout 40 --title="Trieur de vidéos" $zenityTall)
 
 
@@ -220,7 +220,7 @@ if [[ -f "$video" ]]; then
             echo $[$(cat $videoCount) + 1] > $videoCount
             ;;
         "Voir plus tard")
-            # Check if the watch later folder exists and create it if not
+            # Check if the watch later folder exists and create it if not, shouldn't happen, but never hurts to be sure.
             if [[ ! -d "$wlFolder" ]]; then
             mkdir -p "$wlFolder"
             fi
@@ -242,6 +242,7 @@ if [[ -f "$video" ]]; then
         esac
     fi
 else
+    #Handles not finding a video differently depending on the mode of execution.
     case "$1" in
         -n)
         echo "Aucune vidéo trouvée dans le dossier listé, on relance avec une autre commande."
@@ -261,6 +262,7 @@ else
     esac
 fi
 
+#Handles automatic repetition of the script UNLESS the cancel button is chosen instead of one of the option in the zenity window
 if [ ! -z "$choice" ]; then
 exec bash $0 $1 $2
 fi

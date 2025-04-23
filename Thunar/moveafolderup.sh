@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#I don't remember writing this one. It moves the contents of a folder into the containing folder of the former.
+
 file_select () {
 # Dialog to select the files to move
 

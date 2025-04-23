@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Tertiary clipboard when properly keybound. Allows to copy several things and to paste them all at once or one at a time
+
 source $scriptsFolder/SharedFunctions
 
 listboard="/tmp/listboard.txt"
