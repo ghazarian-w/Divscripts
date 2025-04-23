@@ -164,7 +164,7 @@ Mplaying() {
 Mpv_playing() {
     # Afficher la vidéo
     echo "Lecture de la vidéo : $video"
-    mpv --no-terminal --fs "$video"
+    mpv --no-terminal --fs --geometry=100%x90% --window-scale=1 "$video"
     echo "Finished playing the video."
 }
 
