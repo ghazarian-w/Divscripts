@@ -77,8 +77,8 @@
 
 #LvlTrack0
 "bash ~/Ressources/Divscripts/Audacious.sh -0"
-    m:0x50 + c:49
-    Mod2+Mod4 + twosuperior 
+    m:0x40 + c:49
+    Mod4 + twosuperior 
 
 #LvlTrack1
 "bash ~/Ressources/Divscripts/Audacious.sh -1"
@@ -182,8 +182,8 @@
 
 #Switch configs-Copy
 "pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc2"
-    m:0x48 + c:94
-    Alt+Mod4 + less 
+    m:0x4 + c:9
+    Control + Escape 
 
 #Click on repeat
 "xdotool click --repeat 500000 1"
@@ -204,16 +204,6 @@
 "zsh ~/Ressources/Divscripts/SortWallpaper.sh -d"
     m:0x40 + c:57
     Mod4 + n 
-
-#Start dictation French
-"zsh ~/Ressources/Divscripts/Shortcuts/nerd_dictation.sh &"
-    m:0x10 + c:51<
-    mu 
-
-#Start dictation English
-"zsh ~/Ressources/Divscripts/Shortcuts/nerd_dictation.sh -en &"
-    m:0x40 + c:51
-    Mod4 + mu 
 
 #Favorite Track
 "bash ~/Ressources/Divscripts/Audacious.sh -F"

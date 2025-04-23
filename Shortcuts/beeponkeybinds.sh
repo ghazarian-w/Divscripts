@@ -12,6 +12,8 @@ if [ "$keybind" -eq 1 ]; then
     beeeeep
 elif [ "$keybind" -eq 2 ]; then
     beeeeep && beeeeep
+elif [ "$keybind" -eq 3 ]; then
+    beeeeep && beeeeep && beeeeep
 else
-    echo "Invalid value for \$keybind. Use 1 or 2."
+    echo "Invalid value for \$keybind. Use 1, 2 or 3."
 fi

@@ -2,7 +2,7 @@
 # xbindkeys configuration #
 ###########################
 #
-# Version: 0.1.3
+# Version: 0.1.4
 #
 # If you edit this, do not forget to uncomment any lines that you change.
 # The pound(#) symbol may be used anywhere for comments.
@@ -35,130 +35,81 @@
 
 
 
-#App menu
-"xfce4-appfinder"
-    m:0x8 + c:67
-    Alt + F1 
-
-#taskmanager
-"xfce4-taskmanager"
-    m:0x15 + c:9
-    Control+Shift+Mod2 + Escape 
-
-#Logout invite
-"xfce4-session-logout"
-    m:0x5 + c:70
-    Control+Shift + F4 
-
-#Save the RAM
-"zsh ~/Ressources/Divscripts/Shortcuts/pkill.sh"
-    m:0x44 + c:52
-    Control+Mod4 + w 
-
-#Thunar
-"thunar"
-    m:0x40 + c:65
-    Mod4 + space 
-
 #Beep keybinds
 "zsh ~/Ressources/Divscripts/Shortcuts/beeponkeybinds.sh"
-    m:0x0 + c:51
-    mu 
+    m:0x8 + c:90
+    Alt + KP_Insert 
 
 #Delete track
 "bash ~/Ressources/Divscripts/Audacious.sh -D"
-    m:0x0 + c:38
-    q 
-
-#Keep Track
-"bash ~/Ressources/Divscripts/Audacious.sh -K"
-    m:0x0 + c:39
-    s 
-
-#Favorite track
-"bash ~/Ressources/Divscripts/Audacious.sh -F"
     m:0x0 + c:40
     d 
 
-#Up volume
-"zsh ~/Ressources/Divscripts/Shortcuts/upvolume.sh"
-    m:0x0 + c:21
-    minus 
+#LvlTrack0
+"bash ~/Ressources/Divscripts/Audacious.sh -0"
+    m:0x0 + c:52
+    w 
 
-#Down volume
-"zsh ~/Ressources/Divscripts/Shortcuts/downvolume.sh"
-    m:0x0 + c:35
-    dollar 
+#LvlTrack1
+"bash ~/Ressources/Divscripts/Audacious.sh -1"
+    m:0x0 + c:53
+    x 
 
-#Bring up Marvin
-"zsh ~/Ressources/Divscripts/Shortcuts/upmarvin.sh"
-    m:0x40 + c:33
-    Mod4 + p 
+#LvlTrack2
+"bash ~/Ressources/Divscripts/Audacious.sh -2"
+    m:0x0 + c:54
+    c 
 
-#Marvin task
-"zsh ~/Ressources/Divscripts/Marvin/Addtask.sh -u"
-    m:0x40 + c:25
-    Mod4 + z 
-
-#Take note
-"zsh ~/Ressources/Divscripts/Shortcuts/takenote.sh"
-    m:0x40 + c:24
-    Mod4 + a 
-
-#Launch video reader
-"zsh ~/Ressources/Divscripts/Video_watch/Launch.sh"
+#LvlTrack3
+"bash ~/Ressources/Divscripts/Audacious.sh -3"
     m:0x0 + c:55
     v 
 
-#Play/pause media
-"zsh ~/Ressources/Divscripts/Shortcuts/playpause_media.sh"
-    m:0x80 + c:65
-    Mod5 + space 
+#LvlTrack4
+"bash ~/Ressources/Divscripts/Audacious.sh -4"
+    m:0x0 + c:56
+    b 
 
-#Stop medias
-"zsh ~/Ressources/Divscripts/Shortcuts/stop_media.sh"
-    m:0x0 + c:45
-    k 
+#Up volume
+"zsh ~/Ressources/Divscripts/Shortcuts/upvolume.sh"
+    m:0x0 + c:31
+    i 
+
+#Down volume
+"zsh ~/Ressources/Divscripts/Shortcuts/downvolume.sh"
+    m:0x0 + c:32
+    o 
+
+#Launch video reader
+"zsh ~/Ressources/Divscripts/Video_watch/Launch.sh"
+    m:0x4 + c:46
+    Control + l 
 
 #Switch configs
-"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
+"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc3"
     m:0x0 + c:127
     Pause 
 
 #Switch configs-Copy
 "pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc3"
-    m:0x48 + c:94
-    Alt+Mod4 + less 
+    m:0x4 + c:9
+    Control + Escape 
 
-#Switch configs-Copy
-"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
-    m:0x40 + c:28
-    Mod4 + t 
+#Wallp.OK
+"zsh ~/Ressources/Divscripts/SortWallpaper.sh -m"
+    m:0x0 + c:29
+    y 
 
-#Switch configs-Copy
-"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
+#Wallp.Del
+"zsh ~/Ressources/Divscripts/SortWallpaper.sh -d"
+    m:0x0 + c:28
+    t 
+
+#Favorite Track
+"bash ~/Ressources/Divscripts/Audacious.sh -F"
     m:0x40 + c:29
     Mod4 + y 
 
-#Switch configs-Copy
-"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
-    m:0x40 + c:30
-    Mod4 + u 
-
-#Switch configs-Copy
-"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
-    m:0x40 + c:31
-    Mod4 + i 
-
-#Switch configs-Copy
-"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
-    m:0x40 + c:32
-    Mod4 + o 
-
-#Switch configs-Copy
-"pkill xbindkeys ; xbindkeys -f ~/Ressources/Divscripts/Shortcuts/.xbindkeysrc1"
-    m:0x40 + c:32
-    Mod4 + o 
-
 #
+
 # End of xbindkeys configuration
