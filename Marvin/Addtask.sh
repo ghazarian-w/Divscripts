@@ -37,8 +37,9 @@ tag_current() {
     partage="Shareable"
   fi
   if [[ "$cate" == "Bricolage" || "$cate" == "Menage" ]]; then
-    location="Maison"
+    location="Maison"; appareil="NoDevice"; partage="InPerson"
   fi
+
   if [ "$cate" == "Graphisme" ]; then
     appareil="Gluttony"
   fi
@@ -98,7 +99,7 @@ tag_current() {
       priorite=" *p3"
       ;;
       "Pas le feu au lac")
-      priorite=""
+      priorite=" "
       ;;
     esac
   fi
