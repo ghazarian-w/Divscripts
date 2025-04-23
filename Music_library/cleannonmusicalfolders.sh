@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Removes subfolders without music in them.
+
 # Choose folder with Zenity
 folder=$(zenity --file-selection --directory --title="Choose a folder to check for music files")
 if [[ -z "$folder" ]]; then

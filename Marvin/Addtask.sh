@@ -18,6 +18,7 @@ tag_current() {
   if [ "$cate" == "Projet" ]; then
     cate=$(zenity --list "${projects[@]}" --column "" --text "$taskname" --title="Category" $zenityTall)
   fi
+  #Automates tags when certain categories are chosen
   if [ "$cate" == "Organisation" ]; then
     appareil="AnyComputer"; location="Anywhere"; partage="Shareable"
   fi
@@ -39,10 +40,10 @@ tag_current() {
   if [[ "$cate" == "Bricolage" || "$cate" == "Menage" ]]; then
     location="Maison"; appareil="NoDevice"; partage="InPerson"
   fi
-
   if [ "$cate" == "Graphisme" ]; then
     appareil="Gluttony"
   fi
+  #Closes if no category is chosen ie, you click "cancel"
   if [[ -z "$cate" ]]; then
     exit
   fi
@@ -51,12 +52,14 @@ tag_current() {
   if [[ -z "$appareil" ]]; then
   appareil=$(zenity --list "${device[@]}" --column "" --text "$taskname" --title="Appareil" $zenitySmall)
   fi
+  #Automates tags for location depending on the device
   if [[ "$appareil" == "Gluttony" || "$appareil" == "Despair" ]]; then
     location="Maison"
   fi
   if [[ "$appareil" == "Vanity" || "$appareil" == "Greed" ]]; then
     location="Anywhere"
   fi
+  #Cancel button
   if [[ -z "$appareil" ]]; then
     exit
   fi
@@ -64,6 +67,7 @@ tag_current() {
   if [[ -z "$location" ]]; then
   location=$(zenity --list "${place[@]}" --column "" --text "$taskname" --title="Location" $zenitySmall)
   fi
+  #Cancel button
   if [[ -z "$location" ]]; then
     exit
   fi
@@ -75,13 +79,16 @@ tag_current() {
   if [ "$partage" == "Depending" ]; then
     extra=$extra" @Delayed"
   fi
+  #Cancel button
   if [[ -z "$partage" ]]; then
     exit
   fi
 
+  #asks for the time in minute, can accept format like 4h as well
   if [[ -z "$temps" ]]; then
     temps=$(zenity --title "Temps estimé" --entry --text "$taskname")
   fi
+  #Cancel button
   if [[ -z "$temps" ]]; then
     exit
   fi
@@ -103,10 +110,12 @@ tag_current() {
       ;;
     esac
   fi
+  #Cancel button
   if [[ -z "$priorite" ]]; then
     exit
   fi
 
+  #Adds as many additionnal tags as needed, until the user chooses "Rien" or the task is marked as already done.  
   while true; do
     selection=$(zenity --list "Rien" "Récompense particulière" "Ajouter à la liste du jour" "Ajouter pour demain" "Ajouter pour plus tard" "SuperImportant" "Excluded" "Delayed" "Done" "Avec une note" --column "" --text "$taskname" --title="En plus" $zenityTall)
     case "$selection" in
@@ -148,11 +157,13 @@ tag_current() {
         ;;
     esac
   done
+
+  #Actual output of the function
     tagging="#$cate @Untouched @$appareil @$location @$partage ~$temps$priorite$extra$coins"
 }
 
 
-# Define functions to handle different modes
+# Functions to handle different modes
 processList() {
     echo "Processing list"
 
@@ -169,12 +180,14 @@ processList() {
 processListSimilar() {
     echo "Processing list"
 
+    #Doesn't affect the name of added tasks, only used to display an exemple while tagging
     taskname=$(head -n 1 $list_file)
     taskname="Exemple de tâche : $taskname"
     tag_current
 
     # Read the file and process each line
     while IFS= read -r line; do
+        #Not necessary, just sparing the marvin servers
         sleep 2
         ~/Ressources/marvin-cli-linux add "$line $tagging"
         addToTemp $scoreTask
@@ -191,6 +204,7 @@ processSelection() {
 }
 
 processPrompt() {
+    #Used to add tasks one at a time until you don't have anymore idea, not usign any predefined list
     echo "Processing prompt"
     taskname=$(zenity --title "Nom de tâche" --entry --text "La tache apparaitra dans Marvin.")
     while [[ ! -z "$taskname" ]]; do
@@ -209,7 +223,8 @@ processUnique () {
 }
 
 processProject () {
-    taskname=$(zenity --title "Nom de tâche" --entry --text "La tache apparaitra dans Marvin.")
+    #Doesn't work anymore because of marvin-cli.
+    taskname=$(zenity --title "Nom de tâche" --entry --text "Le projet apparaitra dans Marvin.")
     tag_current
     ~/Ressources/marvin-cli-linux add project "$taskname $tagging"
     addToTemp $scoreTask
@@ -225,9 +240,9 @@ extractJson () {
   echo "$jsonMarvin"
   
 
-  # Utiliser mapfile/readarray pour stocker la sortie dans le tableau
+  #Use readarray to put projets into an array
   readarray -t projects < <(jq '.[] | select(.type == "project" and (.done == false or .done == null) and .backburner == false and (.recurring == false or .recurring == null) ) | .title' $jsonMarvin)
-
+  #Cleanup after myself
   rm $archiveMarvinFolder/*.json
   echo "${projects[@]}"
 
@@ -236,9 +251,9 @@ extractJson () {
 
 # Main script
 
-# Check connection and exits if not online
+# Check connection and exits if not. Can't add task to Marvin offline. Marvin works offline, but not the cli.
 check_internet
-# Créer un tableau pour stocker les projets actuels
+# Have to create the array before using function
 declare -a projects
 extractJson
 

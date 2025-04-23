@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Removes most things from music folder and only keeps music files
+
 # Prompt user to select folder
 folder=$(zenity --file-selection --directory --title="Select folder to clean")
 

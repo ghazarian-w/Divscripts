@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#This version also removes flac and other formats to put on a device with minimal space
+
 # Prompt user to select folder
 folder=$(zenity --file-selection --directory --title="Select folder to clean")
 
