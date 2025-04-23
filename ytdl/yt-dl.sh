@@ -34,7 +34,7 @@ prep() {
 }
 
 download() {
-    yt-dlp -cw --hls-prefer-native --write-description --write-link --write-thumbnail --ignore-errors --embed-chapters --embed-thumbnail --socket-timeout 10 --download-archive "$archive" --output "$dl_loc" -f "bestvideo[height<=480]+bestaudio/best[height<=480]" $(cat "$diff_file")
+    yt-dlp -cw --cookies cookies.txt --hls-prefer-native --write-description --write-link --write-thumbnail --ignore-errors --embed-chapters --embed-thumbnail --socket-timeout 10 --download-archive "$archive" --output "$dl_loc" -f "bestvideo[height<=480]+bestaudio/best[height<=480]" $(cat "$diff_file")
 
 
     if [ $? -ne 0 ]; then
